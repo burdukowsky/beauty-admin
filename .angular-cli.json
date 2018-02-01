@@ -19,8 +19,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss",
-        "../node_modules/bootstrap/scss/bootstrap.scss"
+        "../node_modules/flag-icon-css/sass/flag-icon.scss",
+        "../node_modules/font-awesome/scss/font-awesome.scss",
+        "../node_modules/simple-line-icons/scss/simple-line-icons.scss",
+        "scss/styles.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
