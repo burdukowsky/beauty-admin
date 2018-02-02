@@ -35,6 +35,9 @@ import {
   ReplaceDirective
 } from './directives/layout/layout.directive';
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -69,9 +72,7 @@ import {
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:8080']
       }
     }),
