@@ -1,0 +1,9 @@
+{
+  "COMMON": {
+    "VERSION": "Version",
+    "SETTINGS": "Settings"
+  },
+  "SETTINGS": {
+    "LANGUAGE": "Language"
+  }
+}

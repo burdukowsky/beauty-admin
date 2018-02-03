@@ -7,6 +7,7 @@ import {catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Router} from '@angular/router';
+import {globals} from '../globals';
 
 @Injectable()
 export class AuthService {
@@ -38,7 +39,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem(globals.localStorageKeys.accessToken);
     this.router.navigateByUrl('login');
   }
 

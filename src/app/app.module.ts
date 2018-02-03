@@ -3,7 +3,9 @@ import {NgModule} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtModule} from '@auth0/angular-jwt';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -36,9 +38,14 @@ import {
 } from './directives/layout/layout.directive';
 import {environment} from '../environments/environment';
 import {UtilityService} from './utility/utility.service';
+import {globals} from './globals';
 
 export function tokenGetter() {
-  return localStorage.getItem('access_token');
+  return localStorage.getItem(globals.localStorageKeys.accessToken);
+}
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -78,7 +85,14 @@ export function tokenGetter() {
         whitelistedDomains: [UtilityService.removeUrlProtocol(environment.apiEndpoint)]
       }
     }),
-    AppRoutingModule
+    AppRoutingModule,
+    TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        })
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

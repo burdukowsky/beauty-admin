@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../auth/auth.service';
 import {HttpResponse} from '@angular/common/http';
 import {Router, ActivatedRoute} from '@angular/router';
+import {globals} from '../globals';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (response: HttpResponse<any>) => {
             const authorizationHeader: string = response.headers.get('Authorization');
-            localStorage.setItem('access_token', authorizationHeader.split(' ')[1]);
+            localStorage.setItem(globals.localStorageKeys.accessToken, authorizationHeader.split(' ')[1]);
             this.router.navigateByUrl(this.returnUrl);
           },
           err => console.log(err)

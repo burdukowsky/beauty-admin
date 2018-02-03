@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from './auth.service';
+import {globals} from '../globals';
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -14,7 +16,7 @@ export class AuthGuard implements CanActivate {
     if (this.auth.loggedIn()) {
       return true;
     }
-    localStorage.removeItem('access_token');
+    localStorage.removeItem(globals.localStorageKeys.accessToken);
     this.router.navigate(['login'], {queryParams: {returnUrl: state.url}});
     return false;
   }

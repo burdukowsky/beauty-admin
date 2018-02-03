@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {globals} from '../../globals';
 
 @Component({
   selector: 'app-aside',
@@ -7,10 +9,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AsideComponent implements OnInit {
 
-  constructor() {
+  languagesNames = {};
+
+  constructor(public translate: TranslateService) {
+    this.languagesNames[globals.languageCodes.ru] = 'Русский';
+    this.languagesNames[globals.languageCodes.en] = 'English';
   }
 
   ngOnInit() {
+  }
+
+  onLanguageSelect(value) {
+    localStorage.setItem(globals.localStorageKeys.language, value);
+    this.translate.use(value);
   }
 
 }
