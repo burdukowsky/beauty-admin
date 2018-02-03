@@ -1,9 +1,15 @@
 {
   "COMMON": {
     "VERSION": "Version",
-    "SETTINGS": "Settings"
+    "SETTINGS": "Settings",
+    "EMAIL": "Email",
+    "PASSWORD": "Password"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"
+  },
+  "LOGIN": {
+    "LOGIN": "Login",
+    "DESCRIPTION": "Sign In to your account"
   }
 }

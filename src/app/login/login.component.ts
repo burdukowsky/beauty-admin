@@ -4,6 +4,7 @@ import {AuthService} from '../auth/auth.service';
 import {HttpResponse} from '@angular/common/http';
 import {Router, ActivatedRoute} from '@angular/router';
 import {globals} from '../globals';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,15 @@ import {globals} from '../globals';
 export class LoginComponent implements OnInit {
   returnUrl: string;
   form: FormGroup;
+  languagesClasses = {};
 
   constructor(private fb: FormBuilder,
               private auth: AuthService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              public translate: TranslateService) {
+    this.languagesClasses[globals.languageCodes.ru] = 'flag-icon-ru';
+    this.languagesClasses[globals.languageCodes.en] = 'flag-icon-us';
   }
 
   ngOnInit() {
@@ -45,5 +50,10 @@ export class LoginComponent implements OnInit {
           err => console.log(err)
         );
     }
+  }
+
+  onLanguageSelect(value) {
+    localStorage.setItem(globals.localStorageKeys.language, value);
+    this.translate.use(value);
   }
 }

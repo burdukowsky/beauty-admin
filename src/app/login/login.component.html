@@ -6,24 +6,35 @@
           <div class="card p-4">
             <div class="card-body">
               <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-                <h1>Login</h1>
-                <p class="text-muted">Sign In to your account</p>
+                <h1>{{ "LOGIN.LOGIN" | translate }}</h1>
+                <p class="text-muted">{{ "LOGIN.DESCRIPTION" | translate }}</p>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <input type="email" class="form-control" placeholder="Email" formControlName="email" required>
+                  <input type="email" class="form-control" placeholder="{{ 'COMMON.EMAIL' | translate }}"
+                         formControlName="email" required>
                 </div>
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                  <input type="password" class="form-control" placeholder="{{ 'COMMON.PASSWORD' | translate }}"
+                         formControlName="password"
                          required>
                 </div>
                 <div class="row">
                   <div class="col-6">
-                    <button type="submit" class="btn btn-primary px-4">Login</button>
+                    <button type="submit" class="btn btn-primary px-4">{{ "LOGIN.LOGIN" | translate }}</button>
+                  </div>
+                  <div class="col-6 text-right">
+                    <div class="btn-group btn-group-toggle" ngbRadioGroup
+                         (change)="onLanguageSelect($event.target.value)">
+                      <label ngbButtonLabel class="btn-light" *ngFor="let lang of translate.getLangs()">
+                        <input ngbButton type="radio" [value]="lang">
+                        <span class="flag-icon {{ languagesClasses[lang] }}"></span>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </form>

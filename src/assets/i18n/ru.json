@@ -1,9 +1,15 @@
 {
   "COMMON": {
     "VERSION": "Версия",
-    "SETTINGS": "Настройки"
+    "SETTINGS": "Настройки",
+    "EMAIL": "Email",
+    "PASSWORD": "Пароль"
   },
   "SETTINGS": {
     "LANGUAGE": "Язык"
+  },
+  "LOGIN": {
+    "LOGIN": "Вход",
+    "DESCRIPTION": "Войдите в Ваш аккаунт"
   }
 }
