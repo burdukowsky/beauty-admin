@@ -34,6 +34,8 @@ import {
   NavDropdownToggleDirective,
   ReplaceDirective
 } from './directives/layout/layout.directive';
+import {environment} from '../environments/environment';
+import {UtilityService} from './utility/utility.service';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -73,7 +75,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:8080']
+        whitelistedDomains: [UtilityService.removeUrlProtocol(environment.apiEndpoint)]
       }
     }),
     AppRoutingModule
