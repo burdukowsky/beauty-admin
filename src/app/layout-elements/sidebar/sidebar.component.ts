@@ -1,5 +1,6 @@
-import {Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,227 +8,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  public navigation = [
-    {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW'
-      }
-    },
-    {
-      title: true,
-      name: 'Theme'
-    },
-    {
-      name: 'Colors',
-      url: '/theme/colors',
-      icon: 'icon-drop'
-    },
-    {
-      name: 'Typography',
-      url: '/theme/typography',
-      icon: 'icon-pencil'
-    },
-    {
-      title: true,
-      name: 'Components'
-    },
-    {
-      name: 'Base',
-      url: '/base',
-      icon: 'icon-puzzle',
-      children: [
-        {
-          name: 'Cards',
-          url: '/base/cards',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Carousels',
-          url: '/base/carousels',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Collapses',
-          url: '/base/collapses',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Forms',
-          url: '/base/forms',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Pagination',
-          url: '/base/paginations',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Popovers',
-          url: '/base/popovers',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Progress',
-          url: '/base/progress',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Switches',
-          url: '/base/switches',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Tables',
-          url: '/base/tables',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Tabs',
-          url: '/base/tabs',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Tooltips',
-          url: '/base/tooltips',
-          icon: 'icon-puzzle'
-        }
-      ]
-    },
-    {
-      name: 'Buttons',
-      url: '/buttons',
-      icon: 'icon-cursor',
-      children: [
-        {
-          name: 'Buttons',
-          url: '/buttons/buttons',
-          icon: 'icon-cursor'
-        },
-        {
-          name: 'Dropdowns',
-          url: '/buttons/dropdowns',
-          icon: 'icon-cursor'
-        },
-        {
-          name: 'Social Buttons',
-          url: '/buttons/social-buttons',
-          icon: 'icon-cursor'
-        }
-      ]
-    },
-    {
-      name: 'Charts',
-      url: '/charts',
-      icon: 'icon-pie-chart'
-    },
-    {
-      name: 'Icons',
-      url: '/icons',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Flags',
-          url: '/icons/flags',
-          icon: 'icon-star',
-          badge: {
-            variant: 'success',
-            text: 'NEW'
-          }
-        },
-        {
-          name: 'Font Awesome',
-          url: '/icons/font-awesome',
-          icon: 'icon-star',
-          badge: {
-            variant: 'secondary',
-            text: '4.7'
-          }
-        },
-        {
-          name: 'Simple Line Icons',
-          url: '/icons/simple-line-icons',
-          icon: 'icon-star'
-        }
-      ]
-    },
-    {
-      name: 'Notifications',
-      url: '/notifications',
-      icon: 'icon-bell',
-      children: [
-        {
-          name: 'Alerts',
-          url: '/notifications/alerts',
-          icon: 'icon-bell'
-        },
-        {
-          name: 'Modals',
-          url: '/notifications/modals',
-          icon: 'icon-bell'
-        }
-      ]
-    },
-    {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'icon-calculator',
-      badge: {
-        variant: 'info',
-        text: 'NEW'
-      }
-    },
-    {
-      divider: true
-    },
-    {
-      title: true,
-      name: 'Extras',
-    },
-    {
-      name: 'Pages',
-      url: '/pages',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Login',
-          url: '/pages/login',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Register',
-          url: '/pages/register',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 404',
-          url: '/pages/404',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 500',
-          url: '/pages/500',
-          icon: 'icon-star'
-        }
-      ]
-    },
-    {
-      name: 'Download CoreUI',
-      url: 'http://coreui.io/angular/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success'
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'http://coreui.io/pro/angular/',
-      icon: 'icon-layers',
-      variant: 'danger'
-    }
+  private translateKeys: Array<string> = [
+    'COMMON.DASHBOARD',
+    'COMMON.ADMINISTRATOR_MENU',
+    'COMMON.COMPANIES',
+    'COMMON.USERS',
+    'COMMON.SERVICE_CATEGORIES',
+    'COMMON.USER_MENU',
+    'COMMON.MY_COMPANIES',
+    'COMMON.MY_SERVICES'
   ];
+  public navigation: Array<any> = [];
 
   public isDivider(item) {
     return item.divider;
@@ -237,10 +28,52 @@ export class SidebarComponent implements OnInit {
     return !!item.title;
   }
 
-  constructor() {
+  constructor(private translate: TranslateService) {
+    this.navigation.push({
+        url: '/',
+        icon: 'icon-speedometer'
+      },
+      {
+        title: true
+      },
+      {
+        url: '/companies',
+        icon: 'icon-organization'
+      },
+      {
+        url: '/users',
+        icon: 'icon-people'
+      },
+      {
+        url: '/categories',
+        icon: 'icon-grid'
+      },
+      {
+        title: true
+      },
+      {
+        url: '/user/companies',
+        icon: 'icon-organization'
+      },
+      {
+        url: '/user/services',
+        icon: 'icon-star'
+      });
+    this.translate.onLangChange.subscribe(() => {
+      this.refreshTranslates();
+    });
+  }
+
+  private refreshTranslates() {
+    this.translate.get(this.translateKeys).subscribe((res) => {
+      this.translateKeys.forEach((value, index) => {
+        this.navigation[index].name = res[value];
+      });
+    });
   }
 
   ngOnInit() {
+    this.refreshTranslates();
   }
 
 }
@@ -293,8 +126,7 @@ export class AppSidebarNavItemComponent {
        routerLinkActive="active"
        [routerLink]="[link.url]"
        (click)="hideMobile()">
-      <i *ngIf="isIcon()" class="{{ link.icon }}"></i>
-      {{ link.name }}
+      <i *ngIf="isIcon()" class="{{ link.icon }}"></i>{{ link.name }}
       <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{ link.badge.text }}</span>
     </a>
     <ng-template #external>
@@ -367,34 +199,14 @@ export class AppSidebarNavDropdownComponent {
 
 @Component({
   selector: 'app-sidebar-nav-title',
-  template: ''
+  template: '<li class="nav-title">{{title.name}}</li>'
 })
 export class AppSidebarNavTitleComponent implements OnInit {
   @Input() title: any;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  constructor() {
   }
 
   ngOnInit() {
-    const nativeElement: HTMLElement = this.el.nativeElement;
-    const li = this.renderer.createElement('li');
-    const name = this.renderer.createText(this.title.name);
-
-    this.renderer.addClass(li, 'nav-title');
-
-    if (this.title.class) {
-      const classes = this.title.class;
-      this.renderer.addClass(li, classes);
-    }
-
-    if (this.title.wrapper) {
-      const wrapper = this.renderer.createElement(this.title.wrapper.element);
-
-      this.renderer.appendChild(wrapper, name);
-      this.renderer.appendChild(li, wrapper);
-    } else {
-      this.renderer.appendChild(li, name);
-    }
-    this.renderer.appendChild(nativeElement, li);
   }
 }

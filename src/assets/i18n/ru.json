@@ -3,7 +3,17 @@
     "VERSION": "Версия",
     "SETTINGS": "Настройки",
     "EMAIL": "Email",
-    "PASSWORD": "Пароль"
+    "PASSWORD": "Пароль",
+    "ACCOUNT": "Учетная запись",
+    "PROFILE": "Профиль",
+    "DASHBOARD": "Панель состояния",
+    "ADMINISTRATOR_MENU": "Меню администратора",
+    "COMPANIES": "Компании",
+    "USERS": "Пользователи",
+    "SERVICE_CATEGORIES": "Категории услуг",
+    "USER_MENU": "Меню пользователя",
+    "MY_COMPANIES": "Мои компании",
+    "MY_SERVICES": "Мои услуги"
   },
   "SETTINGS": {
     "LANGUAGE": "Язык"
@@ -11,5 +21,8 @@
   "LOGIN": {
     "LOGIN": "Вход",
     "DESCRIPTION": "Войдите в Ваш аккаунт"
+  },
+  "HEADER": {
+    "LOGOUT": "Выйти"
   }
 }

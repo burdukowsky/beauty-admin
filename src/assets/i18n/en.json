@@ -3,7 +3,17 @@
     "VERSION": "Version",
     "SETTINGS": "Settings",
     "EMAIL": "Email",
-    "PASSWORD": "Password"
+    "PASSWORD": "Password",
+    "ACCOUNT": "Account",
+    "PROFILE": "Profile",
+    "DASHBOARD": "Dashboard",
+    "ADMINISTRATOR_MENU": "Administrator menu",
+    "COMPANIES": "Companies",
+    "USERS": "Users",
+    "SERVICE_CATEGORIES": "Service categories",
+    "USER_MENU": "User menu",
+    "MY_COMPANIES": "My companies",
+    "MY_SERVICES": "My services"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"
@@ -11,5 +21,8 @@
   "LOGIN": {
     "LOGIN": "Login",
     "DESCRIPTION": "Sign In to your account"
+  },
+  "HEADER": {
+    "LOGOUT": "Logout"
   }
 }
