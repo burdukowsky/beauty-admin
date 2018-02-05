@@ -28,10 +28,12 @@
                     <button type="submit" class="btn btn-primary px-4">{{ "LOGIN.LOGIN" | translate }}</button>
                   </div>
                   <div class="col-6 text-right">
-                    <div class="btn-group btn-group-toggle" ngbRadioGroup
+                    <div class="btn-group btn-group-toggle"
                          (change)="onLanguageSelect($event.target.value)">
-                      <label ngbButtonLabel class="btn-light" *ngFor="let lang of translate.getLangs()">
-                        <input ngbButton type="radio" [value]="lang">
+                      <label class="btn btn-light" *ngFor="let lang of translate.getLangs()"
+                             [ngClass]="{'active':lang === translate.currentLang}">
+                        <input type="radio" autocomplete="off" [checked]="lang === translate.currentLang"
+                               [value]="lang">
                         <span class="flag-icon {{ languagesClasses[lang] }}"></span>
                       </label>
                     </div>
