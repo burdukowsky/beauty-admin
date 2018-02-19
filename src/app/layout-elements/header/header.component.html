@@ -6,11 +6,12 @@
   <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" appSidebarToggler>
     <span class="navbar-toggler-icon"></span>
   </button>
-  <ul class="nav navbar-nav ml-auto">
+  <span class="ml-auto d-none d-md-block">{{userName}}</span>
+  <ul class="nav navbar-nav">
     <li class="nav-item" ngbDropdown [placement]="'bottom-right'">
       <a class="nav-link" ngbDropdownToggle role="button" aria-haspopup="true"
          aria-expanded="false">
-        <img src="../../../assets/img/avatars/avatar.gif" class="img-avatar" alt="admin@bootstrapmaster.com">
+        <img src="../../../assets/img/avatars/avatar.gif" class="img-avatar" alt="{{userName}}">
       </a>
       <div ngbDropdownMenu>
         <div class="dropdown-header text-center">

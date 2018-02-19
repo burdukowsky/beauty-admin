@@ -43,4 +43,21 @@ export class AuthService {
     this.router.navigateByUrl('login');
   }
 
+  hasRole(role: string): boolean {
+    const token: string = this.jwtHelperService.tokenGetter();
+    if (!token) {
+      return false;
+    }
+    const roles: string[] = this.jwtHelperService.decodeToken(token).roles.split(',');
+    return roles.includes('ROLE_' + role);
+  }
+
+  getSubject(): string {
+    const token: string = this.jwtHelperService.tokenGetter();
+    if (!token) {
+      return null;
+    }
+    return this.jwtHelperService.decodeToken(token).sub;
+  }
+
 }

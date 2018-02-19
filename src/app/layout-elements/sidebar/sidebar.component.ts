@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,36 +29,43 @@ export class SidebarComponent implements OnInit {
     return !!item.title;
   }
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, public auth: AuthService) {
     this.navigation.push({
         url: '/',
         icon: 'icon-speedometer'
       },
       {
-        title: true
+        title: true,
+        role: 'ADMIN'
       },
       {
         url: '/companies',
-        icon: 'icon-organization'
+        icon: 'icon-organization',
+        role: 'ADMIN'
       },
       {
         url: '/users',
-        icon: 'icon-people'
+        icon: 'icon-people',
+        role: 'ADMIN'
       },
       {
         url: '/categories',
-        icon: 'icon-grid'
+        icon: 'icon-grid',
+        role: 'ADMIN'
       },
       {
-        title: true
+        title: true,
+        role: 'MEMBER'
       },
       {
         url: '/user/companies',
-        icon: 'icon-organization'
+        icon: 'icon-organization',
+        role: 'MEMBER'
       },
       {
         url: '/user/services',
-        icon: 'icon-star'
+        icon: 'icon-star',
+        role: 'MEMBER'
       });
     this.translate.onLangChange.subscribe(() => {
       this.refreshTranslates();
