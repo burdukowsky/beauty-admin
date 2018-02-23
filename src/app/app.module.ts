@@ -39,6 +39,11 @@ import {
 import {environment} from '../environments/environment';
 import {UtilityService} from './utility/utility.service';
 import {globals} from './globals';
+import {UsersComponent} from './users/users.component';
+import {MyCompaniesComponent} from './my-companies/my-companies.component';
+import {CompaniesComponent} from './companies/companies.component';
+import {CategoriesComponent} from './categories/categories.component';
+import {MyServicesComponent} from './my-services/my-services.component';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -71,7 +76,12 @@ export function createTranslateLoader(http: HttpClient) {
     AsideToggleDirective,
     NavDropdownDirective,
     NavDropdownToggleDirective,
-    ReplaceDirective
+    ReplaceDirective,
+    UsersComponent,
+    MyCompaniesComponent,
+    CompaniesComponent,
+    CategoriesComponent,
+    MyServicesComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -87,12 +97,12 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AppRoutingModule,
     TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-            }
-        })
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

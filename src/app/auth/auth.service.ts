@@ -49,7 +49,18 @@ export class AuthService {
       return false;
     }
     const roles: string[] = this.jwtHelperService.decodeToken(token).roles.split(',');
-    return roles.includes('ROLE_' + role);
+    return roles.includes(globals.roleAuthorityPrefix + role);
+  }
+
+  hasAnyRole(roles: Array<string>) {
+    const token: string = this.jwtHelperService.tokenGetter();
+    if (!token) {
+      return false;
+    }
+    const userRoles: string[] = this.jwtHelperService.decodeToken(token).roles.split(',');
+    return roles.some(function (role) {
+      return userRoles.includes(globals.roleAuthorityPrefix + role);
+    });
   }
 
   getSubject(): string {

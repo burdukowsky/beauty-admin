@@ -58,12 +58,12 @@ export class SidebarComponent implements OnInit {
         role: 'MEMBER'
       },
       {
-        url: '/user/companies',
+        url: '/my-companies',
         icon: 'icon-organization',
         role: 'MEMBER'
       },
       {
-        url: '/user/services',
+        url: '/my-services',
         icon: 'icon-star',
         role: 'MEMBER'
       });

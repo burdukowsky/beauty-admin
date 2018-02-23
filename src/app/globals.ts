@@ -6,5 +6,6 @@ export const globals = {
   languageCodes: {
     ru: 'ru',
     en: 'en'
-  }
+  },
+  roleAuthorityPrefix: 'ROLE_'
 };
