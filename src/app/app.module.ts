@@ -44,6 +44,8 @@ import {MyCompaniesComponent} from './my-companies/my-companies.component';
 import {CompaniesComponent} from './companies/companies.component';
 import {CategoriesComponent} from './categories/categories.component';
 import {MyServicesComponent} from './my-services/my-services.component';
+import {UserService} from './users/user.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -102,9 +104,10 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    NgxPaginationModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -24,5 +24,19 @@
   },
   "HEADER": {
     "LOGOUT": "Выйти"
+  },
+  "USER": {
+    "ID": "ID",
+    "EMAIL": "Email",
+    "FIRST_NAME": "Имя",
+    "MIDDLE_NAME": "Отчество",
+    "LAST_NAME": "Фамилия",
+    "GENDER": "Пол",
+    "DATE_BIRTH": "Дата рождения",
+    "GENDERS": {
+      "MALE": "Мужской",
+      "FEMALE": "Женский",
+      "UNKNOWN": "Не указан"
+    }
   }
 }

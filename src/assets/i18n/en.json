@@ -24,5 +24,19 @@
   },
   "HEADER": {
     "LOGOUT": "Logout"
+  },
+  "USER": {
+    "ID": "ID",
+    "EMAIL": "Email",
+    "FIRST_NAME": "First name",
+    "MIDDLE_NAME": "Middle name",
+    "LAST_NAME": "Last name",
+    "GENDER": "Gender",
+    "DATE_BIRTH": "Date birth",
+    "GENDERS": {
+      "MALE": "Male",
+      "FEMALE": "Female",
+      "UNKNOWN": "Unknown"
+    }
   }
 }

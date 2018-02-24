@@ -1,3 +1,51 @@
-<p>
-  users works!
-</p>
+<div class="animated fadeIn">
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">{{ "USER.ID" | translate }}</th>
+        <th scope="col">{{ "USER.EMAIL" | translate }}</th>
+        <th scope="col">{{ "USER.FIRST_NAME" | translate }}</th>
+        <th scope="col">{{ "USER.MIDDLE_NAME" | translate }}</th>
+        <th scope="col">{{ "USER.LAST_NAME" | translate }}</th>
+        <th scope="col">{{ "USER.GENDER" | translate }}</th>
+        <th scope="col">{{ "USER.DATE_BIRTH" | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-light"
+          *ngFor="let user of users | paginate: {itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalUsers}">
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.email}}</td>
+        <td>{{user.firstName}}</td>
+        <td>{{user.middleName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{ "USER.GENDERS." + user.gender | translate }}</td>
+        <td>{{user.dateBirth | date:'dd.MM.yyyy'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-template #p="paginationApi" (pageChange)="pageChanged($event)">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a (click)="p.setCurrent(1)">«</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">‹</a>
+      </li>
+      <li class="page-item" *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value">
+        <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+          {{ page.label }}
+        </a>
+        <a *ngIf="p.getCurrent() === page.value">{{ page.label }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">›</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a (click)="p.setCurrent(p.getLastPage())">»</a>
+      </li>
+    </ul>
+  </pagination-template>
+</div>
