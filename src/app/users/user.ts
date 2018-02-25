@@ -1,3 +1,5 @@
+import {Role} from './role';
+
 export class User {
   id: number;
   email: string;
@@ -6,4 +8,5 @@ export class User {
   lastName: string;
   dateBirth: Date;
   gender: Gender;
+  roles: Array<Role>;
 }

@@ -10,6 +10,7 @@
         <th scope="col">{{ "USER.LAST_NAME" | translate }}</th>
         <th scope="col">{{ "USER.GENDER" | translate }}</th>
         <th scope="col">{{ "USER.DATE_BIRTH" | translate }}</th>
+        <th scope="col">{{ "USER.ROLE" | translate }}</th>
       </tr>
       </thead>
       <tbody>
@@ -22,6 +23,11 @@
         <td>{{user.lastName}}</td>
         <td>{{ "USER.GENDERS." + user.gender | translate }}</td>
         <td>{{user.dateBirth | date:'dd.MM.yyyy'}}</td>
+        <td>
+          <p class="m-0" *ngFor="let role of user.roles; let isLast = last">
+            {{ "USER.ROLES." + role.name | translate }}{{isLast ? '' : ', '}}
+          </p>
+        </td>
       </tr>
       </tbody>
     </table>

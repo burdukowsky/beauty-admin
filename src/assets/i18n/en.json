@@ -33,10 +33,15 @@
     "LAST_NAME": "Last name",
     "GENDER": "Gender",
     "DATE_BIRTH": "Date birth",
+    "ROLE": "Role",
     "GENDERS": {
       "MALE": "Male",
       "FEMALE": "Female",
       "UNKNOWN": "Unknown"
+    },
+    "ROLES": {
+      "ADMIN": "Administrator",
+      "MEMBER": "Member"
     }
   }
 }
