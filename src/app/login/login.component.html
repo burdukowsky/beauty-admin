@@ -8,6 +8,9 @@
               <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
                 <h1>{{ "LOGIN.LOGIN" | translate }}</h1>
                 <p class="text-muted">{{ "LOGIN.DESCRIPTION" | translate }}</p>
+                <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = false">
+                  {{"LOGIN.ERROR" | translate}}
+                </ngb-alert>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
@@ -25,7 +28,9 @@
                 </div>
                 <div class="row">
                   <div class="col-6">
-                    <button type="submit" class="btn btn-primary px-4">{{ "LOGIN.LOGIN" | translate }}</button>
+                    <button type="submit" class="btn btn-primary px-4" [disabled]="!form.valid">
+                      {{"LOGIN.LOGIN" | translate}}
+                    </button>
                   </div>
                   <div class="col-6 text-right">
                     <div class="btn-group btn-group-toggle"

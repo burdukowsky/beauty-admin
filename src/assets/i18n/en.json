@@ -23,7 +23,8 @@
   },
   "LOGIN": {
     "LOGIN": "Login",
-    "DESCRIPTION": "Sign In to your account"
+    "DESCRIPTION": "Sign In to your account",
+    "ERROR": "Authentication error"
   },
   "HEADER": {
     "LOGOUT": "Logout"
