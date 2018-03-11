@@ -134,14 +134,14 @@ export class AppSidebarNavItemComponent {
        routerLinkActive="active"
        [routerLink]="[link.url]"
        (click)="hideMobile()">
-      <i *ngIf="isIcon()" class="{{ link.icon }}"></i>{{ link.name }}
-      <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{ link.badge.text }}</span>
+      <i *ngIf="isIcon()" class="{{link.icon}}"></i>{{link.name}}
+      <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{link.badge.text}}</span>
     </a>
     <ng-template #external>
       <a [ngClass]="hasVariant() ? 'nav-link nav-link-' + link.variant : 'nav-link'" [attr.href]="link.url">
-        <i *ngIf="isIcon()" class="{{ link.icon }}"></i>
-        {{ link.name }}
-        <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{ link.badge.text }}</span>
+        <i *ngIf="isIcon()" class="{{link.icon}}"></i>
+        {{link.name}}
+        <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{link.badge.text}}</span>
       </a>
     </ng-template>
   `
@@ -179,9 +179,9 @@ export class AppSidebarNavLinkComponent {
   selector: 'app-sidebar-nav-dropdown',
   template: `
     <a class="nav-link nav-dropdown-toggle" appNavDropdownToggle>
-      <i *ngIf="isIcon()" class="{{ link.icon }}"></i>
-      {{ link.name }}
-      <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{ link.badge.text }}</span>
+      <i *ngIf="isIcon()" class="{{link.icon}}"></i>
+      {{link.name}}
+      <span *ngIf="isBadge()" [ngClass]="'badge badge-' + link.badge.variant">{{link.badge.text}}</span>
     </a>
     <ul class="nav-dropdown-items">
       <ng-template ngFor let-child [ngForOf]="link.children">

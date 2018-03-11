@@ -6,8 +6,8 @@
           <div class="card p-4">
             <div class="card-body">
               <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-                <h1>{{ "LOGIN.LOGIN" | translate }}</h1>
-                <p class="text-muted">{{ "LOGIN.DESCRIPTION" | translate }}</p>
+                <h1>{{"LOGIN.LOGIN" | translate}}</h1>
+                <p class="text-muted">{{"LOGIN.DESCRIPTION" | translate}}</p>
                 <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = false">
                   {{"LOGIN.ERROR" | translate}}
                 </ngb-alert>
@@ -15,14 +15,14 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <input type="email" class="form-control" placeholder="{{ 'COMMON.EMAIL' | translate }}"
+                  <input type="email" class="form-control" placeholder="{{'COMMON.EMAIL' | translate}}"
                          formControlName="email" required>
                 </div>
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="{{ 'COMMON.PASSWORD' | translate }}"
+                  <input type="password" class="form-control" placeholder="{{'COMMON.PASSWORD' | translate}}"
                          formControlName="password"
                          required>
                 </div>
@@ -39,7 +39,7 @@
                              [ngClass]="{'active':lang === translate.currentLang}">
                         <input type="radio" autocomplete="off" [checked]="lang === translate.currentLang"
                                [value]="lang">
-                        <span class="flag-icon {{ languagesClasses[lang] }}"></span>
+                        <span class="flag-icon {{languagesClasses[lang]}}"></span>
                       </label>
                     </div>
                   </div>
