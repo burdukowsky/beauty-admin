@@ -83,6 +83,8 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary float-right">{{ "COMMON.SUBMIT" | translate }}</button>
+    <button type="submit" class="btn btn-primary float-right" [disabled]="!userForm.form.valid">
+      {{ "COMMON.SUBMIT" | translate }}
+    </button>
   </form>
 </div>
