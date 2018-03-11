@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateAdapter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -46,6 +46,8 @@ import {CategoriesComponent} from './categories/categories.component';
 import {MyServicesComponent} from './my-services/my-services.component';
 import {UserService} from './users/user.service';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {UserComponent} from './users/user/user.component';
+import {NgbDateStringAdapter} from './utility/ngb-date-string-adapter';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -83,7 +85,8 @@ export function createTranslateLoader(http: HttpClient) {
     MyCompaniesComponent,
     CompaniesComponent,
     CategoriesComponent,
-    MyServicesComponent
+    MyServicesComponent,
+    UserComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -107,7 +110,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgxPaginationModule
   ],
-  providers: [AuthService, AuthGuard, UserService],
+  providers: [AuthService, AuthGuard, UserService, {provide: NgbDateAdapter, useClass: NgbDateStringAdapter}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

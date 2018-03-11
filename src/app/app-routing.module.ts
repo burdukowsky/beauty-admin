@@ -11,6 +11,7 @@ import {MyCompaniesComponent} from './my-companies/my-companies.component';
 import {CompaniesComponent} from './companies/companies.component';
 import {CategoriesComponent} from './categories/categories.component';
 import {MyServicesComponent} from './my-services/my-services.component';
+import {UserComponent} from './users/user/user.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,12 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent,
+        canActivate: [AuthGuard],
+        data: {roles: ['ADMIN']}
+      },
+      {
+        path: 'users/:id',
+        component: UserComponent,
         canActivate: [AuthGuard],
         data: {roles: ['ADMIN']}
       },

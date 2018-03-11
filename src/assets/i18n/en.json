@@ -13,7 +13,10 @@
     "SERVICE_CATEGORIES": "Service categories",
     "USER_MENU": "User menu",
     "MY_COMPANIES": "My companies",
-    "MY_SERVICES": "My services"
+    "MY_SERVICES": "My services",
+    "SUBMIT": "Submit",
+    "SUCCESS_MESSAGE": "Changes successfully saved",
+    "ERROR_MESSAGE": "An error has occurred"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"
@@ -28,6 +31,8 @@
   "USER": {
     "ID": "ID",
     "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "PASSWORD_DESCRIPTION": "If you leave the field blank, the password will not change.",
     "FIRST_NAME": "First name",
     "MIDDLE_NAME": "Middle name",
     "LAST_NAME": "Last name",

@@ -7,5 +7,6 @@ export const globals = {
     ru: 'ru',
     en: 'en'
   },
-  roleAuthorityPrefix: 'ROLE_'
+  roleAuthorityPrefix: 'ROLE_',
+  alertTimeout: 5000
 };

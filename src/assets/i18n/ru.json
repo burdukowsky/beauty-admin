@@ -13,7 +13,10 @@
     "SERVICE_CATEGORIES": "Категории услуг",
     "USER_MENU": "Меню пользователя",
     "MY_COMPANIES": "Мои компании",
-    "MY_SERVICES": "Мои услуги"
+    "MY_SERVICES": "Мои услуги",
+    "SUBMIT": "Отправить",
+    "SUCCESS_MESSAGE": "Изменения успешно сохранены",
+    "ERROR_MESSAGE": "Произошла ошибка"
   },
   "SETTINGS": {
     "LANGUAGE": "Язык"
@@ -28,6 +31,8 @@
   "USER": {
     "ID": "ID",
     "EMAIL": "Email",
+    "PASSWORD": "Пароль",
+    "PASSWORD_DESCRIPTION": "Если оставить поле пустым, пароль не изменится.",
     "FIRST_NAME": "Имя",
     "MIDDLE_NAME": "Отчество",
     "LAST_NAME": "Фамилия",
