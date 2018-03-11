@@ -37,7 +37,6 @@ import {
   ReplaceDirective
 } from './directives/layout/layout.directive';
 import {environment} from '../environments/environment';
-import {UtilityService} from './utility/utility.service';
 import {globals} from './globals';
 import {UsersComponent} from './users/users.component';
 import {MyCompaniesComponent} from './my-companies/my-companies.component';
@@ -97,7 +96,7 @@ export function createTranslateLoader(http: HttpClient) {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: [UtilityService.removeUrlProtocol(environment.apiEndpoint)]
+        whitelistedDomains: [environment.apiEndpointWithoutProtocol]
       }
     }),
     AppRoutingModule,
