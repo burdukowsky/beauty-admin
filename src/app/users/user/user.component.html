@@ -76,10 +76,10 @@
         {{"USER.ROLE" | translate}}:
       </label>
       <div class="col-sm-10">
-        <div class="form-check form-check-inline" *ngFor="let role of roles; let i = index">
-          <input class="form-check-input" type="checkbox" id="roleAdmin{{i}}" value="{{role}}"
+        <div class="custom-control custom-checkbox custom-control-inline" *ngFor="let role of roles; let i = index">
+          <input class="custom-control-input" type="checkbox" id="roleAdmin{{i}}" value="{{role}}"
                  (change)="onRoleCheck(role)" [checked]="roleExists(role)">
-          <label class="form-check-label" for="roleAdmin{{i}}">{{"USER.ROLES." + role.name | translate}}</label>
+          <label class="custom-control-label" for="roleAdmin{{i}}">{{"USER.ROLES." + role.name | translate}}</label>
         </div>
       </div>
     </div>
