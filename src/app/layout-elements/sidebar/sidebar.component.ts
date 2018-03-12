@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(private translate: TranslateService, public auth: AuthService) {
     this.navigation.push({
-        url: '/',
+        url: '/dashboard',
         icon: 'icon-speedometer'
       },
       {
