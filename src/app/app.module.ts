@@ -47,6 +47,7 @@ import {UserService} from './users/user.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {UserComponent} from './users/user/user.component';
 import {NgbDateStringAdapter} from './utility/ngb-date-string-adapter';
+import {BreadcrumbsService} from './utility/breadcrumbs.service';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -109,7 +110,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgxPaginationModule
   ],
-  providers: [AuthService, AuthGuard, UserService, {provide: NgbDateAdapter, useClass: NgbDateStringAdapter}],
+  providers: [AuthService, AuthGuard, UserService, {provide: NgbDateAdapter, useClass: NgbDateStringAdapter}, BreadcrumbsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

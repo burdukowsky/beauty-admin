@@ -1,3 +1,8 @@
 <ol class="breadcrumb">
-  <li class="breadcrumb-item active">{{"COMMON.DASHBOARD" | translate}}</li>
+  <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item active">
+    <a [routerLink]="[breadcrumb.url]">
+      <span *ngIf="breadcrumb.isTranslationKey">{{breadcrumb.label | translate}}</span>
+      <span *ngIf="!breadcrumb.isTranslationKey">{{breadcrumb.label}}</span>
+    </a>
+  </li>
 </ol>

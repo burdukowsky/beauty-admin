@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {User} from './user';
 import {UserService} from './user.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Breadcrumb} from '../utility/breadcrumb';
+import {BreadcrumbsService} from '../utility/breadcrumbs.service';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +17,13 @@ export class UsersComponent implements OnInit {
   startPage: number;
   totalUsers: number;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
+              private breadcrumbsService: BreadcrumbsService) {
+    const breadcrumbs: Array<Breadcrumb> = [
+      new Breadcrumb('/users', 'COMMON.USERS', true)
+    ];
+    this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
+
     this.startPage = 1;
     this.currentPage = this.startPage;
     this.itemsPerPage = 10;
