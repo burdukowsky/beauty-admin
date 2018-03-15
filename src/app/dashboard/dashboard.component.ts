@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private breadcrumbsService: BreadcrumbsService) {
     const breadcrumbs: Array<Breadcrumb> = [
-      new Breadcrumb('/dashboard', 'COMMON.DASHBOARD', true)
+      new Breadcrumb(null, 'COMMON.DASHBOARD', true, true)
     ];
     this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
   }

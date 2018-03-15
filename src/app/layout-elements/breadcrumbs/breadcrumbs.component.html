@@ -1,6 +1,10 @@
 <ol class="breadcrumb">
-  <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item active">
-    <a [routerLink]="[breadcrumb.url]">
+  <li *ngFor="let breadcrumb of breadcrumbs" class="breadcrumb-item" [class.active]="breadcrumb.isActive">
+    <ng-container *ngIf="breadcrumb.url === null">
+      <span *ngIf="breadcrumb.isTranslationKey">{{breadcrumb.label | translate}}</span>
+      <span *ngIf="!breadcrumb.isTranslationKey">{{breadcrumb.label}}</span>
+    </ng-container>
+    <a *ngIf="breadcrumb.url !== null" [routerLink]="[breadcrumb.url]">
       <span *ngIf="breadcrumb.isTranslationKey">{{breadcrumb.label | translate}}</span>
       <span *ngIf="!breadcrumb.isTranslationKey">{{breadcrumb.label}}</span>
     </a>

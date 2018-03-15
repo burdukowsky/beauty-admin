@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Breadcrumb} from '../utility/breadcrumb';
+import {BreadcrumbsService} from '../utility/breadcrumbs.service';
 
 @Component({
   selector: 'app-companies',
@@ -7,7 +9,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CompaniesComponent implements OnInit {
 
-  constructor() {
+  constructor(private breadcrumbsService: BreadcrumbsService) {
+    const breadcrumbs: Array<Breadcrumb> = [
+      new Breadcrumb(null, 'COMMON.COMPANIES', true, true)
+    ];
+    this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
   }
 
   ngOnInit() {

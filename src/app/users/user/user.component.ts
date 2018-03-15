@@ -8,6 +8,8 @@ import {RoleEnum} from '../role.enum';
 import {Subject} from 'rxjs/Subject';
 import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../../globals';
+import {Breadcrumb} from '../../utility/breadcrumb';
+import {BreadcrumbsService} from '../../utility/breadcrumbs.service';
 
 @Component({
   selector: 'app-user',
@@ -24,7 +26,7 @@ export class UserComponent implements OnInit {
   private _success = new Subject<boolean>();
   private _error = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private breadcrumbsService: BreadcrumbsService) {
     this.gendersKeys = Object.keys(this.genders);
     this.roles = [new Role(RoleEnum.Admin), new Role(RoleEnum.Member)];
   }
@@ -40,7 +42,14 @@ export class UserComponent implements OnInit {
 
   private getUser(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.userService.getUser(id).subscribe(user => this.user = user);
+    this.userService.getUser(id).subscribe(user => {
+      this.user = user;
+      const breadcrumbs: Array<Breadcrumb> = [
+        new Breadcrumb('/users', 'COMMON.USERS', true, false),
+        new Breadcrumb(null, this.user.getFullName(), false, true)
+      ];
+      this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
+    });
   }
 
   public roleExists(role: Role): boolean {

@@ -31,4 +31,8 @@ export class User {
     this.gender = gender;
     this.roles = roles;
   }
+
+  public getFullName(): string {
+    return [this.firstName, this.lastName].join(' ');
+  }
 }

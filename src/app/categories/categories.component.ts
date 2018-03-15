@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Breadcrumb} from '../utility/breadcrumb';
+import {BreadcrumbsService} from '../utility/breadcrumbs.service';
 
 @Component({
   selector: 'app-categories',
@@ -7,7 +9,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor() {
+  constructor(private breadcrumbsService: BreadcrumbsService) {
+    const breadcrumbs: Array<Breadcrumb> = [
+      new Breadcrumb(null, 'COMMON.SERVICE_CATEGORIES', true, true)
+    ];
+    this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
   }
 
   ngOnInit() {

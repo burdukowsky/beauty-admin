@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
               private breadcrumbsService: BreadcrumbsService) {
     const breadcrumbs: Array<Breadcrumb> = [
-      new Breadcrumb('/users', 'COMMON.USERS', true)
+      new Breadcrumb(null, 'COMMON.USERS', true, true)
     ];
     this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
 
