@@ -48,6 +48,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {UserComponent} from './users/user/user.component';
 import {NgbDateStringAdapter} from './utility/ngb-date-string-adapter';
 import {BreadcrumbsService} from './utility/breadcrumbs.service';
+import {CompanyService} from './companies/company.service';
+import {CompanyComponent} from './companies/company/company.component';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -86,7 +88,8 @@ export function createTranslateLoader(http: HttpClient) {
     CompaniesComponent,
     CategoriesComponent,
     MyServicesComponent,
-    UserComponent
+    UserComponent,
+    CompanyComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -110,7 +113,14 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgxPaginationModule
   ],
-  providers: [AuthService, AuthGuard, UserService, {provide: NgbDateAdapter, useClass: NgbDateStringAdapter}, BreadcrumbsService],
+  providers: [
+    AuthService,
+    AuthGuard,
+    UserService,
+    CompanyService,
+    BreadcrumbsService,
+    {provide: NgbDateAdapter, useClass: NgbDateStringAdapter}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

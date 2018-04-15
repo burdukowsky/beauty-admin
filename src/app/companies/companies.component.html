@@ -1,3 +1,43 @@
-<p>
-  companies works!
-</p>
+<div class="animated fadeIn">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">{{"COMPANY.ID" | translate}}</th>
+        <th scope="col">{{"COMPANY.NAME" | translate}}</th>
+        <th scope="col">{{"COMPANY.DESCRIPTION" | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-light cursor-pointer" routerLink="/companies/{{company.id}}"
+          *ngFor="let company of companies | paginate: {itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalUsers}">
+        <th scope="row">{{company.id}}</th>
+        <td>{{company.name}}</td>
+        <td>{{company.description}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-template #p="paginationApi" (pageChange)="pageChanged($event)">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a (click)="p.setCurrent(1)">«</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isFirstPage()">
+        <a class="page-link" (click)="p.previous()">‹</a>
+      </li>
+      <li class="page-item" *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value">
+        <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+          {{page.label}}
+        </a>
+        <a *ngIf="p.getCurrent() === page.value">{{page.label}}</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a class="page-link" (click)="p.next()">›</a>
+      </li>
+      <li class="page-item" [class.disabled]="p.isLastPage()">
+        <a (click)="p.setCurrent(p.getLastPage())">»</a>
+      </li>
+    </ul>
+  </pagination-template>
+</div>

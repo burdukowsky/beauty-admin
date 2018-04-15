@@ -49,5 +49,11 @@
       "ADMIN": "Administrator",
       "MEMBER": "Member"
     }
+  },
+  "COMPANY": {
+    "ID": "ID",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "SERVICES": "Services"
   }
 }
