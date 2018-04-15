@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Company} from '../company';
 import {Subject} from 'rxjs/Subject';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CompanyService} from '../company.service';
 import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../../globals';
@@ -20,7 +20,10 @@ export class CompanyComponent implements OnInit {
   private _success = new Subject<boolean>();
   private _error = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private companyService: CompanyService, private breadcrumbsService: BreadcrumbsService) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private companyService: CompanyService,
+              private breadcrumbsService: BreadcrumbsService) {
   }
 
   ngOnInit() {
@@ -53,6 +56,15 @@ export class CompanyComponent implements OnInit {
         this._error.next(true);
         console.error(error);
       });
+  }
+
+  public delete(): void {
+    this.companyService.deleteCompany(this.company.id).subscribe(response => {
+      this.router.navigateByUrl('/companies');
+    }, error => {
+      this._error.next(true);
+      console.error(error);
+    });
   }
 
 }

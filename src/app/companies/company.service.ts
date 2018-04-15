@@ -29,6 +29,10 @@ export class CompanyService {
     return this.http.patch<any>(`${environment.apiEndpoint}/companies/${company.id}`, company).map(CompanyService.toCompany);
   }
 
+  deleteCompany(companyId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiEndpoint}/companies/${companyId}`);
+  }
+
   constructor(private http: HttpClient) {
   }
 
