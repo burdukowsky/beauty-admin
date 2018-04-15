@@ -36,6 +36,10 @@ export class UserService {
     return this.http.patch<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(this.toUser);
   }
 
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiEndpoint}/users/${userId}`);
+  }
+
   constructor(private http: HttpClient) {
   }
 

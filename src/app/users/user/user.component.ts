@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../user.service';
 import {User} from '../user';
 import {Gender} from '../gender.enum';
@@ -26,7 +26,10 @@ export class UserComponent implements OnInit {
   private _success = new Subject<boolean>();
   private _error = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private breadcrumbsService: BreadcrumbsService) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private userService: UserService,
+              private breadcrumbsService: BreadcrumbsService) {
     this.gendersKeys = Object.keys(this.genders);
     this.roles = [new Role(RoleEnum.Admin), new Role(RoleEnum.Member)];
   }
@@ -81,6 +84,15 @@ export class UserComponent implements OnInit {
         this._error.next(true);
         console.error(error);
       });
+  }
+
+  public delete(): void {
+    this.userService.deleteUser(this.user.id).subscribe(response => {
+      this.router.navigateByUrl('/users');
+    }, error => {
+      this._error.next(true);
+      console.error(error);
+    });
   }
 
 }

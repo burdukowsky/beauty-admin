@@ -16,7 +16,8 @@
     "MY_SERVICES": "My services",
     "SUBMIT": "Submit",
     "SUCCESS_MESSAGE": "Changes successfully saved",
-    "ERROR_MESSAGE": "An error has occurred"
+    "ERROR_MESSAGE": "An error has occurred",
+    "DELETE": "Delete"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"
