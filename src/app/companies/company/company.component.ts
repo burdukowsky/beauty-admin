@@ -5,6 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {CompanyService} from '../company.service';
 import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../../globals';
+import {BreadcrumbsService} from '../../utility/breadcrumbs.service';
+import {Breadcrumb} from '../../utility/breadcrumb';
 
 @Component({
   selector: 'app-company',
@@ -18,7 +20,7 @@ export class CompanyComponent implements OnInit {
   private _success = new Subject<boolean>();
   private _error = new Subject<boolean>();
 
-  constructor(private route: ActivatedRoute, private companyService: CompanyService) {
+  constructor(private route: ActivatedRoute, private companyService: CompanyService, private breadcrumbsService: BreadcrumbsService) {
   }
 
   ngOnInit() {
@@ -32,7 +34,14 @@ export class CompanyComponent implements OnInit {
 
   getCompany(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.companyService.getCompany(id).subscribe(company => this.company = company);
+    this.companyService.getCompany(id).subscribe(company => {
+      this.company = company;
+      const breadcrumbs: Array<Breadcrumb> = [
+        new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
+        new Breadcrumb(null, this.company.name, false, true)
+      ];
+      this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
+    });
   }
 
   public onSubmit() {
