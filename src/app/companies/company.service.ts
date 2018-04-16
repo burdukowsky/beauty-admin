@@ -33,6 +33,10 @@ export class CompanyService {
     return this.http.delete<any>(`${environment.apiEndpoint}/companies/${companyId}`);
   }
 
+  createCompany(company: Company): Observable<Company> {
+    return this.http.post<any>(`${environment.apiEndpoint}/companies`, company).map(CompanyService.toCompany);
+  }
+
   constructor(private http: HttpClient) {
   }
 

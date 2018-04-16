@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
       this.user = new User(null, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/users', 'COMMON.USERS', true, false),
-        new Breadcrumb(null, 'COMMON.NEW', true, true)
+        new Breadcrumb(null, 'COMMON.ADD', true, true)
       ];
       this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
       return;

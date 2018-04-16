@@ -18,7 +18,7 @@
     "SUCCESS_MESSAGE": "Changes successfully saved",
     "ERROR_MESSAGE": "An error has occurred",
     "DELETE": "Delete",
-    "NEW": "New"
+    "ADD": "Add"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"

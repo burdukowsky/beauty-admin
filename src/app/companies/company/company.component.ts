@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Company} from '../company';
 import {Subject} from 'rxjs/Subject';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 import {CompanyService} from '../company.service';
 import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../../globals';
@@ -22,6 +23,7 @@ export class CompanyComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private location: Location,
               private companyService: CompanyService,
               private breadcrumbsService: BreadcrumbsService) {
   }
@@ -36,6 +38,15 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompany(): void {
+    if (this.router.url === '/new-company') {
+      this.company = new Company(null, '', '');
+      const breadcrumbs: Array<Breadcrumb> = [
+        new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
+        new Breadcrumb(null, 'COMMON.ADD', true, true)
+      ];
+      this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
+      return;
+    }
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.companyService.getCompany(id).subscribe(company => {
       this.company = company;
@@ -48,6 +59,16 @@ export class CompanyComponent implements OnInit {
   }
 
   public onSubmit() {
+    if (this.company.id === null) {
+      this.companyService.createCompany(this.company).subscribe(company => {
+          this.location.back();
+        },
+        error => {
+          this._error.next(true);
+          console.error(error);
+        });
+      return;
+    }
     this.companyService.updateCompany(this.company).subscribe(company => {
         this.company = company;
         this._success.next(true);
@@ -60,7 +81,7 @@ export class CompanyComponent implements OnInit {
 
   public delete(): void {
     this.companyService.deleteCompany(this.company.id).subscribe(response => {
-      this.router.navigateByUrl('/companies');
+      this.location.back();
     }, error => {
       this._error.next(true);
       console.error(error);
