@@ -17,7 +17,8 @@
     "SUBMIT": "Отправить",
     "SUCCESS_MESSAGE": "Изменения успешно сохранены",
     "ERROR_MESSAGE": "Произошла ошибка",
-    "DELETE": "Удалить"
+    "DELETE": "Удалить",
+    "NEW": "Новый"
   },
   "SETTINGS": {
     "LANGUAGE": "Язык"

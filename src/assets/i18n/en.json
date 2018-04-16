@@ -17,7 +17,8 @@
     "SUBMIT": "Submit",
     "SUCCESS_MESSAGE": "Changes successfully saved",
     "ERROR_MESSAGE": "An error has occurred",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "NEW": "New"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"

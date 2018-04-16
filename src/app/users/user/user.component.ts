@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 import {UserService} from '../user.service';
 import {User} from '../user';
 import {Gender} from '../gender.enum';
@@ -28,6 +29,7 @@ export class UserComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private location: Location,
               private userService: UserService,
               private breadcrumbsService: BreadcrumbsService) {
     this.gendersKeys = Object.keys(this.genders);
@@ -44,6 +46,15 @@ export class UserComponent implements OnInit {
   }
 
   private getUser(): void {
+    if (this.router.url === '/new-user') {
+      this.user = new User(null, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
+      const breadcrumbs: Array<Breadcrumb> = [
+        new Breadcrumb('/users', 'COMMON.USERS', true, false),
+        new Breadcrumb(null, 'COMMON.NEW', true, true)
+      ];
+      this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
+      return;
+    }
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.userService.getUser(id).subscribe(user => {
       this.user = user;
@@ -73,6 +84,16 @@ export class UserComponent implements OnInit {
   }
 
   public onSubmit() {
+    if (this.user.id === null) {
+      this.userService.createUser(this.user).subscribe(user => {
+          this.location.back();
+        },
+        error => {
+          this._error.next(true);
+          console.error(error);
+        });
+      return;
+    }
     if (this.user.password === '') {
       this.user.password = undefined;
     }
@@ -88,7 +109,7 @@ export class UserComponent implements OnInit {
 
   public delete(): void {
     this.userService.deleteUser(this.user.id).subscribe(response => {
-      this.router.navigateByUrl('/users');
+      this.location.back();
     }, error => {
       this._error.next(true);
       console.error(error);

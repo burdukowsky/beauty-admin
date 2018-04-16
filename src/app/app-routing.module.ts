@@ -54,6 +54,12 @@ const routes: Routes = [
         data: {roles: ['ADMIN']}
       },
       {
+        path: 'new-user',
+        component: UserComponent,
+        canActivate: [AuthGuard],
+        data: {roles: ['ADMIN']}
+      },
+      {
         path: 'categories',
         component: CategoriesComponent,
         canActivate: [AuthGuard],

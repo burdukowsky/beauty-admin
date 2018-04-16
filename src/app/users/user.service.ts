@@ -40,6 +40,10 @@ export class UserService {
     return this.http.delete<any>(`${environment.apiEndpoint}/users/${userId}`);
   }
 
+  createUser(user: User): Observable<User> {
+    return this.http.post<any>(`${environment.apiEndpoint}/users`, user).map(this.toUser);
+  }
+
   constructor(private http: HttpClient) {
   }
 
