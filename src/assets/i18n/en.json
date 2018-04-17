@@ -56,6 +56,7 @@
     "ID": "ID",
     "NAME": "Name",
     "DESCRIPTION": "Description",
-    "SERVICES": "Services"
+    "SERVICES": "Services",
+    "OWNER": "Owner"
   }
 }

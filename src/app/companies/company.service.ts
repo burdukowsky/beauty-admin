@@ -4,12 +4,14 @@ import {Observable} from 'rxjs/Observable';
 import {CompaniesResponse} from './companiesResponse';
 import {environment} from '../../environments/environment';
 import {Company} from './company';
+import {User} from '../users/user';
+import {UserService} from '../users/user.service';
 
 @Injectable()
 export class CompanyService {
 
-  private static toCompany(response: any): Company {
-    return new Company(response.id, response.name, response.description);
+  public static toCompany(response: any): Company {
+    return new Company(response.id, response.name, response.description, null);
   }
 
   getCompanies(page: number, limit: number): Observable<CompaniesResponse> {
@@ -23,6 +25,10 @@ export class CompanyService {
 
   getCompany(id: number): Observable<Company> {
     return this.http.get<any>(`${environment.apiEndpoint}/companies/${id}`).map(CompanyService.toCompany);
+  }
+
+  getCompanyOwner(companyId: number): Observable<User> {
+    return this.http.get(`${environment.apiEndpoint}/companies/${companyId}/owner`).map(UserService.toUser);
   }
 
   updateCompany(company: Company): Observable<Company> {

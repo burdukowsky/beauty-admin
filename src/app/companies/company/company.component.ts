@@ -8,6 +8,9 @@ import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../../globals';
 import {BreadcrumbsService} from '../../utility/breadcrumbs.service';
 import {Breadcrumb} from '../../utility/breadcrumb';
+import {User} from 'app/users/user';
+import {UserService} from '../../users/user.service';
+import {RoleEnum} from '../../users/role.enum';
 
 @Component({
   selector: 'app-company',
@@ -16,6 +19,7 @@ import {Breadcrumb} from '../../utility/breadcrumb';
 })
 export class CompanyComponent implements OnInit {
   company: Company;
+  members: Array<User>;
   successMessage: boolean;
   errorMessage: boolean;
   private _success = new Subject<boolean>();
@@ -25,6 +29,7 @@ export class CompanyComponent implements OnInit {
               private router: Router,
               private location: Location,
               private companyService: CompanyService,
+              private userService: UserService,
               private breadcrumbsService: BreadcrumbsService) {
   }
 
@@ -35,11 +40,12 @@ export class CompanyComponent implements OnInit {
     debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
 
     this.getCompany();
+    this.getMembers();
   }
 
   getCompany(): void {
     if (this.router.url === '/new-company') {
-      this.company = new Company(null, '', '');
+      this.company = new Company(null, '', '', null);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
         new Breadcrumb(null, 'COMMON.ADD', true, true)
@@ -49,13 +55,28 @@ export class CompanyComponent implements OnInit {
     }
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.companyService.getCompany(id).subscribe(company => {
-      this.company = company;
-      const breadcrumbs: Array<Breadcrumb> = [
-        new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
-        new Breadcrumb(null, this.company.name, false, true)
-      ];
-      this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
-    });
+        this.company = company;
+        const breadcrumbs: Array<Breadcrumb> = [
+          new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
+          new Breadcrumb(null, this.company.name, false, true)
+        ];
+        this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
+        this.companyService.getCompanyOwner(this.company.id).subscribe(owner => {
+            this.company.owner = owner;
+          },
+          error => {
+            this._error.next(true);
+            console.error(error);
+          });
+      },
+      error => {
+        this._error.next(true);
+        console.error(error);
+      });
+  }
+
+  getMembers(): void {
+    this.userService.getUsersByRole(RoleEnum.Member).subscribe(users => this.members = users);
   }
 
   public onSubmit() {

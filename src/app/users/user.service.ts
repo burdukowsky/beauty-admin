@@ -6,11 +6,12 @@ import {environment} from '../../environments/environment';
 import {UsersResponse} from './usersResponse';
 import {User} from './user';
 import {Role} from './role';
+import {RoleEnum} from './role.enum';
 
 @Injectable()
 export class UserService {
 
-  private toUser(response: any): User {
+  public static toUser(response: any): User {
     return new User(response.id, response.email, response.password, response.firstName, response.middleName, response.lastName,
       response.dateBirth, response.gender, response.roles.map(role => new Role(role.name)));
   }
@@ -25,15 +26,15 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    return this.http.get<any>(`${environment.apiEndpoint}/users/${id}`).map(this.toUser);
+    return this.http.get<any>(`${environment.apiEndpoint}/users/${id}`).map(UserService.toUser);
   }
 
   replaceUser(user: User): Observable<User> {
-    return this.http.put<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(this.toUser);
+    return this.http.put<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(UserService.toUser);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(this.toUser);
+    return this.http.patch<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(UserService.toUser);
   }
 
   deleteUser(userId: number): Observable<any> {
@@ -41,7 +42,14 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<any>(`${environment.apiEndpoint}/users`, user).map(this.toUser);
+    return this.http.post<any>(`${environment.apiEndpoint}/users`, user).map(UserService.toUser);
+  }
+
+  getUsersByRole(role: RoleEnum): Observable<Array<User>> {
+    let params = new HttpParams();
+    params = params.append('role', role);
+    return this.http.get<any>(`${environment.apiEndpoint}/users/search/findAllByRolesName`, {params: params})
+      .map(response => response._embedded.users.map(UserService.toUser));
   }
 
   constructor(private http: HttpClient) {
