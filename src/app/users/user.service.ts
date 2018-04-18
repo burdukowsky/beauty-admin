@@ -7,6 +7,8 @@ import {UsersResponse} from './usersResponse';
 import {User} from './user';
 import {Role} from './role';
 import {RoleEnum} from './role.enum';
+import {Company} from '../companies/company';
+import {CompanyService} from '../companies/company.service';
 
 @Injectable()
 export class UserService {
@@ -50,6 +52,11 @@ export class UserService {
     params = params.append('role', role);
     return this.http.get<any>(`${environment.apiEndpoint}/users/search/findAllByRolesName`, {params: params})
       .map(response => response._embedded.users.map(UserService.toUser));
+  }
+
+  getUserCompanies(userId: number): Observable<Array<Company>> {
+    return this.http.get<any>(`${environment.apiEndpoint}/users/${userId}/companies`)
+      .map(response => response._embedded.companies.map(CompanyService.toCompany));
   }
 
   constructor(private http: HttpClient) {

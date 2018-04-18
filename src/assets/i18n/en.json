@@ -50,13 +50,15 @@
     "ROLES": {
       "ADMIN": "Administrator",
       "MEMBER": "Member"
-    }
+    },
+    "USER_COMPANIES": "User companies"
   },
   "COMPANY": {
     "ID": "ID",
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "SERVICES": "Services",
-    "OWNER": "Owner"
+    "OWNER": "Owner",
+    "COMPANY_OWNER": "Company owner"
   }
 }

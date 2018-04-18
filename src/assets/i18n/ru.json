@@ -50,13 +50,15 @@
     "ROLES": {
       "ADMIN": "Администратор",
       "MEMBER": "Участник"
-    }
+    },
+    "USER_COMPANIES": "Компании пользователя"
   },
   "COMPANY": {
     "ID": "ID",
     "NAME": "Название",
     "DESCRIPTION": "Описание",
     "SERVICES": "Улуги",
-    "OWNER": "Владелец"
+    "OWNER": "Владелец",
+    "COMPANY_OWNER": "Владелец компании"
   }
 }

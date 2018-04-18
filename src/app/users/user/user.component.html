@@ -102,4 +102,7 @@
       {{"COMMON.SUBMIT" | translate}}
     </button>
   </form>
+  <a routerLink="/users/{{user.id}}/companies" *ngIf="isMember()" class="btn btn-info">
+    {{"USER.USER_COMPANIES" | translate}}
+  </a>
 </div>

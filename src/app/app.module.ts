@@ -50,6 +50,7 @@ import {NgbDateStringAdapter} from './utility/ngb-date-string-adapter';
 import {BreadcrumbsService} from './utility/breadcrumbs.service';
 import {CompanyService} from './companies/company.service';
 import {CompanyComponent} from './companies/company/company.component';
+import {UserCompaniesComponent} from './users/user/user-companies/user-companies.component';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -89,7 +90,8 @@ export function createTranslateLoader(http: HttpClient) {
     CategoriesComponent,
     MyServicesComponent,
     UserComponent,
-    CompanyComponent
+    CompanyComponent,
+    UserCompaniesComponent
   ],
   imports: [
     NgbModule.forRoot(),

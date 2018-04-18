@@ -116,4 +116,8 @@ export class UserComponent implements OnInit {
     });
   }
 
+  public isMember(): boolean {
+    return this.user.hasRole(RoleEnum.Member);
+  }
+
 }

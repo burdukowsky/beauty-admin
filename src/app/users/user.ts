@@ -1,5 +1,6 @@
 import {Role} from './role';
 import {Gender} from './gender.enum';
+import {RoleEnum} from './role.enum';
 
 export class User {
   id: number;
@@ -34,5 +35,14 @@ export class User {
 
   public getFullName(): string {
     return [this.firstName, this.lastName].join(' ');
+  }
+
+  public hasRole(role: RoleEnum): boolean {
+    for (let i = 0; i < this.roles.length; i++) {
+      if (this.roles[i].name === role) {
+        return true;
+      }
+    }
+    return false;
   }
 }

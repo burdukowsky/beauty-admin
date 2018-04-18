@@ -49,4 +49,7 @@
       {{"COMMON.SUBMIT" | translate}}
     </button>
   </form>
+  <a routerLink="/users/{{company.owner.id}}" *ngIf="company.owner" class="btn btn-info">
+    {{"COMPANY.COMPANY_OWNER" | translate}}
+  </a>
 </div>
