@@ -7,10 +7,10 @@
   </ngb-alert>
 
   <div class="row" *ngIf="user.id !== null">
-    <div class="col-sm-10">
+    <div class="col-sm-9">
       <h2>{{user.firstName}} {{user.lastName}}</h2>
     </div>
-    <div class="col-sm-2 text-right">
+    <div class="col-sm-3 text-right">
       <button type="button" (click)="delete()" class="btn btn-danger mb-2">
         <i class="fa fa-trash"></i>
         {{"COMMON.DELETE" | translate}}

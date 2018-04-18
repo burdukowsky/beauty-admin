@@ -6,6 +6,7 @@ import {environment} from '../../environments/environment';
 import {Company} from './company';
 import {User} from '../users/user';
 import {UserService} from '../users/user.service';
+import {CompanyRest} from './companyRest';
 
 @Injectable()
 export class CompanyService {
@@ -32,7 +33,8 @@ export class CompanyService {
   }
 
   updateCompany(company: Company): Observable<Company> {
-    return this.http.patch<any>(`${environment.apiEndpoint}/companies/${company.id}`, company).map(CompanyService.toCompany);
+    return this.http.patch<any>(`${environment.apiEndpoint}/companies/${company.id}`, new CompanyRest(company))
+      .map(CompanyService.toCompany);
   }
 
   deleteCompany(companyId: number): Observable<any> {
@@ -40,7 +42,7 @@ export class CompanyService {
   }
 
   createCompany(company: Company): Observable<Company> {
-    return this.http.post<any>(`${environment.apiEndpoint}/companies`, company).map(CompanyService.toCompany);
+    return this.http.post<any>(`${environment.apiEndpoint}/companies`, new CompanyRest(company)).map(CompanyService.toCompany);
   }
 
   constructor(private http: HttpClient) {

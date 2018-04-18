@@ -11,6 +11,8 @@ import {Breadcrumb} from '../../utility/breadcrumb';
 import {User} from 'app/users/user';
 import {UserService} from '../../users/user.service';
 import {RoleEnum} from '../../users/role.enum';
+import {Gender} from '../../users/gender.enum';
+import {Role} from '../../users/role';
 
 @Component({
   selector: 'app-company',
@@ -19,6 +21,7 @@ import {RoleEnum} from '../../users/role.enum';
 })
 export class CompanyComponent implements OnInit {
   company: Company;
+  ownerId: string;
   members: Array<User>;
   successMessage: boolean;
   errorMessage: boolean;
@@ -46,6 +49,7 @@ export class CompanyComponent implements OnInit {
   getCompany(): void {
     if (this.router.url === '/new-company') {
       this.company = new Company(null, '', '', null);
+      this.company.owner = new User(null, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
         new Breadcrumb(null, 'COMMON.ADD', true, true)
@@ -62,6 +66,7 @@ export class CompanyComponent implements OnInit {
         ];
         this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
         this.companyService.getCompanyOwner(this.company.id).subscribe(owner => {
+            this.ownerId = String(owner.id);
             this.company.owner = owner;
           },
           error => {
@@ -79,6 +84,10 @@ export class CompanyComponent implements OnInit {
     this.userService.getUsersByRole(RoleEnum.Member).subscribe(users => this.members = users);
   }
 
+  setNewOwner(userId: string): void {
+    this.company.owner = this.members.find(user => user.id === Number(userId));
+  }
+
   public onSubmit() {
     if (this.company.id === null) {
       this.companyService.createCompany(this.company).subscribe(company => {
@@ -91,7 +100,6 @@ export class CompanyComponent implements OnInit {
       return;
     }
     this.companyService.updateCompany(this.company).subscribe(company => {
-        this.company = company;
         this._success.next(true);
       },
       error => {
