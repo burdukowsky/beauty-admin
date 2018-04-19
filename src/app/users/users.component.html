@@ -1,4 +1,8 @@
-<div class="animated fadeIn">
+<ngb-alert *ngIf="loadErrorMessage" type="danger" [dismissible]="false">
+  {{"COMMON.LOAD_ERROR_MESSAGE" | translate}}
+</ngb-alert>
+
+<div class="animated fadeIn" *ngIf="!loadErrorMessage">
   <button class="btn btn-success pull-right mb-2" routerLink="/new-user">
     <i class="fa fa-plus" aria-hidden="true"></i>
     {{"COMMON.ADD" | translate}}

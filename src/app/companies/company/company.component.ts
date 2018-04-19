@@ -23,6 +23,7 @@ export class CompanyComponent implements OnInit {
   company: Company;
   ownerId: string;
   members: Array<User>;
+  loadErrorMessage: boolean;
   successMessage: boolean;
   errorMessage: boolean;
   private _success = new Subject<boolean>();
@@ -37,6 +38,7 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadErrorMessage = false;
     this._success.subscribe((state) => this.successMessage = state);
     this._error.subscribe((state) => this.errorMessage = state);
     debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
@@ -70,18 +72,24 @@ export class CompanyComponent implements OnInit {
             this.company.owner = owner;
           },
           error => {
-            this._error.next(true);
             console.error(error);
+            this.loadErrorMessage = true;
           });
       },
       error => {
-        this._error.next(true);
         console.error(error);
+        this.loadErrorMessage = true;
       });
   }
 
   getMembers(): void {
-    this.userService.getUsersByRole(RoleEnum.Member).subscribe(users => this.members = users);
+    this.userService.getUsersByRole(RoleEnum.Member).subscribe(users => {
+        this.members = users;
+      },
+      error => {
+        console.error(error);
+        this.loadErrorMessage = true;
+      });
   }
 
   setNewOwner(userId: string): void {

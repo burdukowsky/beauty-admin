@@ -14,11 +14,13 @@ import {ActivatedRoute} from '@angular/router';
 export class UserCompaniesComponent implements OnInit {
   user: User;
   companies: Array<Company>;
+  loadErrorMessage: boolean;
 
   constructor(private breadcrumbsService: BreadcrumbsService, private userService: UserService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.loadErrorMessage = false;
     this.getData();
   }
 
@@ -34,7 +36,15 @@ export class UserCompaniesComponent implements OnInit {
       ];
       this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
 
-      this.userService.getUserCompanies(userId).subscribe(companies => this.companies = companies);
+      this.userService.getUserCompanies(userId).subscribe(companies => {
+        this.companies = companies;
+      }, error => {
+        console.error(error);
+        this.loadErrorMessage = true;
+      });
+    }, error => {
+      console.error(error);
+      this.loadErrorMessage = true;
     });
   }
 

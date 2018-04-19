@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit {
   currentPage: number;
   startPage: number;
   totalUsers: number;
+  loadErrorMessage: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
               private breadcrumbsService: BreadcrumbsService) {
@@ -30,6 +31,7 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadErrorMessage = false;
     this.route.queryParams.subscribe(params => {
       this.currentPage = params['page'] === undefined ? this.startPage : params['page'];
       this.getUsers();
@@ -40,6 +42,9 @@ export class UsersComponent implements OnInit {
     this.userService.getUsers(this.currentPage, this.itemsPerPage).subscribe(usersResponse => {
       this.users = usersResponse.users;
       this.totalUsers = usersResponse.total;
+    }, error => {
+      console.error(error);
+      this.loadErrorMessage = true;
     });
   }
 

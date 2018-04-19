@@ -16,6 +16,7 @@ export class CompaniesComponent implements OnInit {
   currentPage: number;
   startPage: number;
   totalUsers: number;
+  loadErrorMessage: boolean;
 
   constructor(private companyService: CompanyService,
               private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class CompaniesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadErrorMessage = false;
     this.route.queryParams.subscribe(params => {
       this.currentPage = params['page'] === undefined ? this.startPage : params['page'];
       this.getCompanies();
@@ -42,6 +44,9 @@ export class CompaniesComponent implements OnInit {
     this.companyService.getCompanies(this.currentPage, this.itemsPerPage).subscribe(companiesResponse => {
       this.companies = companiesResponse.companies;
       this.totalUsers = companiesResponse.total;
+    }, error => {
+      console.error(error);
+      this.loadErrorMessage = true;
     });
   }
 

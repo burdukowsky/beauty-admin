@@ -1,4 +1,8 @@
-<div class="animated fadeIn" *ngIf="company">
+<ngb-alert *ngIf="loadErrorMessage" type="danger" [dismissible]="false">
+  {{"COMMON.LOAD_ERROR_MESSAGE" | translate}}
+</ngb-alert>
+
+<div class="animated fadeIn" *ngIf="!loadErrorMessage && company">
   <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = false">
     {{"COMMON.SUCCESS_MESSAGE" | translate}}
   </ngb-alert>

@@ -22,6 +22,7 @@ export class UserComponent implements OnInit {
   gendersKeys;
   user: User;
   roles: Array<Role>;
+  loadErrorMessage: boolean;
   successMessage: boolean;
   errorMessage: boolean;
   private _success = new Subject<boolean>();
@@ -37,6 +38,8 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadErrorMessage = false;
+
     this._success.subscribe((state) => this.successMessage = state);
     this._error.subscribe((state) => this.errorMessage = state);
     debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
@@ -63,6 +66,9 @@ export class UserComponent implements OnInit {
         new Breadcrumb(null, this.user.getFullName(), false, true)
       ];
       this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
+    }, error => {
+      console.error(error);
+      this.loadErrorMessage = true;
     });
   }
 

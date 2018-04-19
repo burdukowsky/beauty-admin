@@ -1,4 +1,8 @@
-<div class="animated fadeIn">
+<ngb-alert *ngIf="loadErrorMessage" type="danger" [dismissible]="false">
+  {{"COMMON.LOAD_ERROR_MESSAGE" | translate}}
+</ngb-alert>
+
+<div class="animated fadeIn" *ngIf="!loadErrorMessage">
   <div class="table-responsive">
     <table class="table table-hover">
       <thead class="thead-dark">

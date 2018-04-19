@@ -17,6 +17,7 @@
     "SUBMIT": "Submit",
     "SUCCESS_MESSAGE": "Changes successfully saved",
     "ERROR_MESSAGE": "An error has occurred",
+    "LOAD_ERROR_MESSAGE": "Error receiving data",
     "DELETE": "Delete",
     "ADD": "Add"
   },
