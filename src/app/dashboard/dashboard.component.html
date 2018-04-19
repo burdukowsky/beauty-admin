@@ -1,3 +1,72 @@
 <div class="animated fadeIn">
-  dashboard works!
+  <div class="row">
+    <div class="col-sm-6" *ngIf="authService.hasRole('ADMIN')">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="fa fa-users bg-primary p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-primary mb-0 mt-2">999</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">
+            {{"DASHBOARD.USERS_IN_SYSTEM" | translate}}
+          </div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted" routerLink="/users">
+            {{"DASHBOARD.GO_TO_USER_LIST" | translate}}
+            <i class="fa fa-angle-right float-right font-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="authService.hasRole('ADMIN')">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="fa fa-building bg-primary p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-primary mb-0 mt-2">999</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">
+            {{"DASHBOARD.COMPANIES_IN_SYSTEM" | translate}}
+          </div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted" routerLink="/companies">
+            {{"DASHBOARD.GO_TO_COMPANY_LIST" | translate}}
+            <i class="fa fa-angle-right float-right font-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="authService.hasRole('MEMBER')">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="fa fa-building bg-primary p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-primary mb-0 mt-2">999</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">
+            {{"DASHBOARD.MY_COMPANIES" | translate}}
+          </div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted" routerLink="/my-companies">
+            {{"DASHBOARD.GO_TO_MY_COMPANIES" | translate}}
+            <i class="fa fa-angle-right float-right font-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="authService.hasRole('MEMBER')">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="fa fa-rub bg-primary p-3 font-2xl mr-3 float-left"></i>
+          <div class="h5 text-primary mb-0 mt-2">999</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">
+            {{"DASHBOARD.MY_SERVICES" | translate}}
+          </div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted" routerLink="/my-services">
+            {{"DASHBOARD.GO_TO_MY_SERVICES" | translate}}
+            <i class="fa fa-angle-right float-right font-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BreadcrumbsService} from '../utility/breadcrumbs.service';
 import {Breadcrumb} from '../utility/breadcrumb';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,7 @@ import {Breadcrumb} from '../utility/breadcrumb';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private breadcrumbsService: BreadcrumbsService) {
+  constructor(private breadcrumbsService: BreadcrumbsService, public authService: AuthService) {
     const breadcrumbs: Array<Breadcrumb> = [
       new Breadcrumb(null, 'COMMON.DASHBOARD', true, true)
     ];
