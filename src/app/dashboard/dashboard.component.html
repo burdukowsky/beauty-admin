@@ -1,10 +1,14 @@
-<div class="animated fadeIn">
-  <div class="row">
+<ngb-alert *ngIf="loadErrorMessage" type="danger" [dismissible]="false">
+  {{"COMMON.LOAD_ERROR_MESSAGE" | translate}}
+</ngb-alert>
+
+<div class="animated fadeIn" *ngIf="!loadErrorMessage">
+  <div class="row" *ngIf="adminMetrics">
     <div class="col-sm-6" *ngIf="authService.hasRole('ADMIN')">
       <div class="card">
         <div class="card-body p-3 clearfix">
           <i class="fa fa-users bg-primary p-3 font-2xl mr-3 float-left"></i>
-          <div class="h5 text-primary mb-0 mt-2">999</div>
+          <div class="h5 text-primary mb-0 mt-2">{{adminMetrics.usersCount}}</div>
           <div class="text-muted text-uppercase font-weight-bold font-xs">
             {{"DASHBOARD.USERS_IN_SYSTEM" | translate}}
           </div>
@@ -21,7 +25,7 @@
       <div class="card">
         <div class="card-body p-3 clearfix">
           <i class="fa fa-building bg-primary p-3 font-2xl mr-3 float-left"></i>
-          <div class="h5 text-primary mb-0 mt-2">999</div>
+          <div class="h5 text-primary mb-0 mt-2">{{adminMetrics.companiesCount}}</div>
           <div class="text-muted text-uppercase font-weight-bold font-xs">
             {{"DASHBOARD.COMPANIES_IN_SYSTEM" | translate}}
           </div>
@@ -34,6 +38,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row">
     <div class="col-sm-6" *ngIf="authService.hasRole('MEMBER')">
       <div class="card">
         <div class="card-body p-3 clearfix">
