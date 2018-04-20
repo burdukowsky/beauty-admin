@@ -5,15 +5,11 @@ import {CompaniesResponse} from './companiesResponse';
 import {environment} from '../../environments/environment';
 import {Company} from './company';
 import {User} from '../users/user';
-import {UserService} from '../users/user.service';
 import {CompanyRest} from './companyRest';
+import {ResponseConverterService} from '../utility/response-converter.service';
 
 @Injectable()
 export class CompanyService {
-
-  public static toCompany(response: any): Company {
-    return new Company(response.id, response.name, response.description, null);
-  }
 
   getCompanies(page: number, limit: number): Observable<CompaniesResponse> {
     let params = new HttpParams();
@@ -25,16 +21,16 @@ export class CompanyService {
   }
 
   getCompany(id: number): Observable<Company> {
-    return this.http.get<any>(`${environment.apiEndpoint}/companies/${id}`).map(CompanyService.toCompany);
+    return this.http.get<any>(`${environment.apiEndpoint}/companies/${id}`).map(ResponseConverterService.toCompany);
   }
 
   getCompanyOwner(companyId: number): Observable<User> {
-    return this.http.get(`${environment.apiEndpoint}/companies/${companyId}/owner`).map(UserService.toUser);
+    return this.http.get(`${environment.apiEndpoint}/companies/${companyId}/owner`).map(ResponseConverterService.toUser);
   }
 
   updateCompany(company: Company): Observable<Company> {
     return this.http.patch<any>(`${environment.apiEndpoint}/companies/${company.id}`, new CompanyRest(company))
-      .map(CompanyService.toCompany);
+      .map(ResponseConverterService.toCompany);
   }
 
   deleteCompany(companyId: number): Observable<any> {
@@ -42,7 +38,8 @@ export class CompanyService {
   }
 
   createCompany(company: Company): Observable<Company> {
-    return this.http.post<any>(`${environment.apiEndpoint}/companies`, new CompanyRest(company)).map(CompanyService.toCompany);
+    return this.http.post<any>(`${environment.apiEndpoint}/companies`, new CompanyRest(company))
+      .map(ResponseConverterService.toCompany);
   }
 
   constructor(private http: HttpClient) {

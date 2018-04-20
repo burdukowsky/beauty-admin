@@ -51,6 +51,7 @@ import {BreadcrumbsService} from './utility/breadcrumbs.service';
 import {CompanyService} from './companies/company.service';
 import {CompanyComponent} from './companies/company/company.component';
 import {UserCompaniesComponent} from './users/user/user-companies/user-companies.component';
+import {ResponseConverterService} from './utility/response-converter.service';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -121,6 +122,7 @@ export function createTranslateLoader(http: HttpClient) {
     UserService,
     CompanyService,
     BreadcrumbsService,
+    ResponseConverterService,
     {provide: NgbDateAdapter, useClass: NgbDateStringAdapter}
   ],
   bootstrap: [AppComponent]
