@@ -7,7 +7,6 @@ import {UsersResponse} from './usersResponse';
 import {User} from './user';
 import {RoleEnum} from './role.enum';
 import {Company} from '../companies/company';
-import {ResponseConverterService} from '../utility/response-converter.service';
 
 @Injectable()
 export class UserService {
@@ -22,15 +21,15 @@ export class UserService {
   }
 
   getUser(id: number): Observable<User> {
-    return this.http.get<any>(`${environment.apiEndpoint}/users/${id}`).map(ResponseConverterService.toUser);
+    return this.http.get<any>(`${environment.apiEndpoint}/users/${id}`).map(User.buildFromResponse);
   }
 
   replaceUser(user: User): Observable<User> {
-    return this.http.put<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(ResponseConverterService.toUser);
+    return this.http.put<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(User.buildFromResponse);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(ResponseConverterService.toUser);
+    return this.http.patch<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(User.buildFromResponse);
   }
 
   deleteUser(userId: number): Observable<any> {
@@ -38,19 +37,19 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<any>(`${environment.apiEndpoint}/users`, user).map(ResponseConverterService.toUser);
+    return this.http.post<any>(`${environment.apiEndpoint}/users`, user).map(User.buildFromResponse);
   }
 
   getUsersByRole(role: RoleEnum): Observable<Array<User>> {
     let params = new HttpParams();
     params = params.append('role', role);
     return this.http.get<any>(`${environment.apiEndpoint}/users/search/findAllByRolesName`, {params: params})
-      .map(response => response._embedded.users.map(ResponseConverterService.toUser));
+      .map(response => response._embedded.users.map(User.buildFromResponse));
   }
 
   getUserCompanies(userId: number): Observable<Array<Company>> {
     return this.http.get<any>(`${environment.apiEndpoint}/users/${userId}/companies`)
-      .map(response => response._embedded.companies.map(ResponseConverterService.toCompany));
+      .map(response => response._embedded.companies.map(Company.buildFromResponse));
   }
 
   constructor(private http: HttpClient) {

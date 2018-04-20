@@ -13,6 +13,11 @@ export class User {
   gender: Gender;
   roles: Array<Role>;
 
+  public static buildFromResponse(response: any): User {
+    return new User(response.id, response.email, response.password, response.firstName, response.middleName, response.lastName,
+      response.dateBirth, response.gender, response.roles.map(role => new Role(role.name)));
+  }
+
   constructor(id: number,
               email: string,
               password: string,

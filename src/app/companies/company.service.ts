@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {Company} from './company';
 import {User} from '../users/user';
 import {CompanyRest} from './companyRest';
-import {ResponseConverterService} from '../utility/response-converter.service';
 
 @Injectable()
 export class CompanyService {
@@ -21,16 +20,16 @@ export class CompanyService {
   }
 
   getCompany(id: number): Observable<Company> {
-    return this.http.get<any>(`${environment.apiEndpoint}/companies/${id}`).map(ResponseConverterService.toCompany);
+    return this.http.get<any>(`${environment.apiEndpoint}/companies/${id}`).map(Company.buildFromResponse);
   }
 
   getCompanyOwner(companyId: number): Observable<User> {
-    return this.http.get(`${environment.apiEndpoint}/companies/${companyId}/owner`).map(ResponseConverterService.toUser);
+    return this.http.get(`${environment.apiEndpoint}/companies/${companyId}/owner`).map(User.buildFromResponse);
   }
 
   updateCompany(company: Company): Observable<Company> {
     return this.http.patch<any>(`${environment.apiEndpoint}/companies/${company.id}`, new CompanyRest(company))
-      .map(ResponseConverterService.toCompany);
+      .map(Company.buildFromResponse);
   }
 
   deleteCompany(companyId: number): Observable<any> {
@@ -39,7 +38,7 @@ export class CompanyService {
 
   createCompany(company: Company): Observable<Company> {
     return this.http.post<any>(`${environment.apiEndpoint}/companies`, new CompanyRest(company))
-      .map(ResponseConverterService.toCompany);
+      .map(Company.buildFromResponse);
   }
 
   constructor(private http: HttpClient) {

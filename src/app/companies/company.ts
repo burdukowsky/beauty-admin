@@ -6,6 +6,10 @@ export class Company {
   description: string;
   owner: User;
 
+  public static buildFromResponse(response: any): Company {
+    return new Company(response.id, response.name, response.description, null);
+  }
+
   constructor(id: number, name: string, description: string, owner: User) {
     this.id = id;
     this.name = name;

@@ -51,7 +51,6 @@ import {BreadcrumbsService} from './utility/breadcrumbs.service';
 import {CompanyService} from './companies/company.service';
 import {CompanyComponent} from './companies/company/company.component';
 import {UserCompaniesComponent} from './users/user/user-companies/user-companies.component';
-import {ResponseConverterService} from './utility/response-converter.service';
 import {MetricsService} from './metrics/metrics.service';
 
 export function tokenGetter() {
@@ -123,7 +122,6 @@ export function createTranslateLoader(http: HttpClient) {
     UserService,
     CompanyService,
     BreadcrumbsService,
-    ResponseConverterService,
     MetricsService,
     {provide: NgbDateAdapter, useClass: NgbDateStringAdapter}
   ],
