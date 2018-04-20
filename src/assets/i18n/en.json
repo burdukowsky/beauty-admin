@@ -66,10 +66,8 @@
     "USERS_IN_SYSTEM": "Users in the system",
     "COMPANIES_IN_SYSTEM": "Companies in the system",
     "MY_COMPANIES": "My companies",
-    "MY_SERVICES": "My services",
     "GO_TO_USER_LIST": "Go to user list",
     "GO_TO_COMPANY_LIST": "Go to company list",
-    "GO_TO_MY_COMPANIES": "Go to my companies",
-    "GO_TO_MY_SERVICES": "Go to my services"
+    "GO_TO_MY_COMPANIES": "Go to my companies"
   }
 }

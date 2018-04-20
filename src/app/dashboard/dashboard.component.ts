@@ -4,6 +4,7 @@ import {Breadcrumb} from '../utility/breadcrumb';
 import {AuthService} from '../auth/auth.service';
 import {MetricsService} from '../metrics/metrics.service';
 import {AdminMetrics} from '../metrics/adminMetrics';
+import {MemberMetrics} from '../metrics/memberMetrics';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import {AdminMetrics} from '../metrics/adminMetrics';
 })
 export class DashboardComponent implements OnInit {
   adminMetrics: AdminMetrics;
+  memberMetrics: MemberMetrics;
   loadErrorMessage: boolean;
 
   constructor(private breadcrumbsService: BreadcrumbsService, private metricsService: MetricsService, public authService: AuthService) {
@@ -23,14 +25,31 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadErrorMessage = false;
+
     if (this.authService.hasRole('ADMIN')) {
-      this.metricsService.getAdminMetrics().subscribe(adminMetrics => {
-        this.adminMetrics = adminMetrics;
-      }, error => {
-        console.error(error);
-        this.loadErrorMessage = true;
-      });
+      this.getAdminMetrics();
     }
+    if (this.authService.hasRole('MEMBER')) {
+      this.getMemberMetrics();
+    }
+  }
+
+  private getAdminMetrics(): void {
+    this.metricsService.getAdminMetrics().subscribe(adminMetrics => {
+      this.adminMetrics = adminMetrics;
+    }, error => {
+      console.error(error);
+      this.loadErrorMessage = true;
+    });
+  }
+
+  private getMemberMetrics(): void {
+    this.metricsService.getMemberMetrics().subscribe(memberMetrics => {
+      this.memberMetrics = memberMetrics;
+    }, error => {
+      console.error(error);
+      this.loadErrorMessage = true;
+    });
   }
 
 }

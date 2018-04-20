@@ -66,10 +66,8 @@
     "USERS_IN_SYSTEM": "Пользователей в системе",
     "COMPANIES_IN_SYSTEM": "Компаний в системе",
     "MY_COMPANIES": "Мои компании",
-    "MY_SERVICES": "Мои услуги",
     "GO_TO_USER_LIST": "Перейти к списку пользователей",
     "GO_TO_COMPANY_LIST": "Перейти к списку компаний",
-    "GO_TO_MY_COMPANIES": "Перейти к моим компаниям",
-    "GO_TO_MY_SERVICES": "Перейти к моим услугам"
+    "GO_TO_MY_COMPANIES": "Перейти к моим компаниям"
   }
 }
