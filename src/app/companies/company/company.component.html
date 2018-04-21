@@ -50,10 +50,12 @@
       </div>
     </div>
     <button type="submit" class="btn btn-primary float-right" [disabled]="!companyForm.form.valid">
+      <i class="fa fa-paper-plane" aria-hidden="true"></i>
       {{"COMMON.SUBMIT" | translate}}
     </button>
   </form>
   <a routerLink="/users/{{company.owner.id}}" *ngIf="company.owner" class="btn btn-info">
+    <i class="fa fa-user" aria-hidden="true"></i>
     {{"COMPANY.COMPANY_OWNER" | translate}}
   </a>
 </div>
