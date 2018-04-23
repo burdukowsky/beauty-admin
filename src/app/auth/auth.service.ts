@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private jwtHelperService: JwtHelperService, private http: HttpClient, private router: Router) {
   }
 
-  loggedIn() {
+  loggedIn(): boolean {
     const token: string = this.jwtHelperService.tokenGetter();
     if (!token) {
       return false;
@@ -25,7 +25,7 @@ export class AuthService {
     return this.http.post(environment.apiEndpoint + '/login', user, {responseType: 'text', observe: 'response'});
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem(globals.localStorageKeys.accessToken);
     this.router.navigateByUrl('login');
   }
@@ -39,7 +39,7 @@ export class AuthService {
     return roles.includes(globals.roleAuthorityPrefix + role);
   }
 
-  hasAnyRole(roles: Array<string>) {
+  hasAnyRole(roles: Array<string>): boolean {
     const token: string = this.jwtHelperService.tokenGetter();
     if (!token) {
       return false;
