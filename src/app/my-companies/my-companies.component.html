@@ -1,3 +1,25 @@
-<p>
-  my-companies works!
-</p>
+<ngb-alert *ngIf="loadErrorMessage" type="danger" [dismissible]="false">
+  {{"COMMON.LOAD_ERROR_MESSAGE" | translate}}
+</ngb-alert>
+
+<div class="animated fadeIn" *ngIf="!loadErrorMessage">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">{{"COMPANY.ID" | translate}}</th>
+        <th scope="col">{{"COMPANY.NAME" | translate}}</th>
+        <th scope="col">{{"COMPANY.DESCRIPTION" | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-light cursor-pointer" routerLink="/my-companies/{{company.id}}"
+          *ngFor="let company of companies">
+        <th scope="row">{{company.id}}</th>
+        <td>{{company.name}}</td>
+        <td>{{company.description}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

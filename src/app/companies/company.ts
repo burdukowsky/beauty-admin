@@ -7,7 +7,8 @@ export class Company {
   owner: User;
 
   public static buildFromResponse(response: any): Company {
-    return new Company(response.id, response.name, response.description, null);
+    const owner = response.owner ? User.buildFromResponse(response.owner) : null;
+    return new Company(response.id, response.name, response.description, owner);
   }
 
   constructor(id: number, name: string, description: string, owner: User) {

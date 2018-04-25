@@ -19,6 +19,10 @@ export class CompanyService {
       new CompaniesResponse(response._embedded.companies, response.page.totalElements));
   }
 
+  getMyCompanies(): Observable<Array<Company>> {
+    return this.http.get<any>(`${environment.apiEndpoint}/companies/my`).map(response => response.map(Company.buildFromResponse));
+  }
+
   getCompany(id: number): Observable<Company> {
     return this.http.get<any>(`${environment.apiEndpoint}/companies/${id}`).map(Company.buildFromResponse);
   }
