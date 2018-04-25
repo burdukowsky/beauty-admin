@@ -69,5 +69,10 @@
     "GO_TO_USER_LIST": "Перейти к списку пользователей",
     "GO_TO_COMPANY_LIST": "Перейти к списку компаний",
     "GO_TO_MY_COMPANIES": "Перейти к моим компаниям"
+  },
+  "CATEGORY": {
+    "ID": "ID",
+    "NAME": "Название",
+    "DESCRIPTION": "Описание"
   }
 }

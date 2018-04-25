@@ -69,5 +69,10 @@
     "GO_TO_USER_LIST": "Go to user list",
     "GO_TO_COMPANY_LIST": "Go to company list",
     "GO_TO_MY_COMPANIES": "Go to my companies"
+  },
+  "CATEGORY": {
+    "ID": "ID",
+    "NAME": "Name",
+    "DESCRIPTION": "Description"
   }
 }

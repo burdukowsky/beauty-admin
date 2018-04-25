@@ -1,3 +1,38 @@
-<p>
-  categories works!
-</p>
+<ngb-alert *ngIf="loadErrorMessage" type="danger" [dismissible]="false">
+  {{"COMMON.LOAD_ERROR_MESSAGE" | translate}}
+</ngb-alert>
+
+<div class="animated fadeIn" *ngIf="!loadErrorMessage">
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">{{"CATEGORY.ID" | translate}}</th>
+        <th scope="col">{{"CATEGORY.NAME" | translate}}</th>
+        <th scope="col">{{"CATEGORY.DESCRIPTION" | translate}}</th>
+      </tr>
+      </thead>
+      <ng-container *ngFor="let category of categories">
+        <tbody>
+        <tr class="table-light">
+          <th scope="row" class="cursor-pointer" (click)="category.isCollapsed = !category.isCollapsed"
+              [attr.aria-expanded]="!category.isCollapsed">
+            {{category.id}}
+            <i class="fa pull-right" aria-hidden="true"
+               [ngClass]="{'fa-caret-down': category.isCollapsed, 'fa-caret-up': !category.isCollapsed}"></i>
+          </th>
+          <td>{{category.name}}</td>
+          <td>{{category.description}}</td>
+        </tr>
+        </tbody>
+        <tbody [ngbCollapse]="category.isCollapsed">
+        <tr *ngFor="let service of category.services" class="table-active">
+          <td class="pt-1 pb-1">{{service.id}}</td>
+          <td class="pt-1 pb-1">{{service.name}}</td>
+          <td class="pt-1 pb-1">{{service.description}}</td>
+        </tr>
+        </tbody>
+      </ng-container>
+    </table>
+  </div>
+</div>
