@@ -54,6 +54,7 @@ import {CompanyComponent} from './companies/company/company.component';
 import {UserCompaniesComponent} from './users/user/user-companies/user-companies.component';
 import {MetricsService} from './metrics/metrics.service';
 import {CategoryService} from './categories/category.service';
+import {MyCompanyComponent} from './my-companies/my-company/my-company.component';
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
@@ -94,7 +95,8 @@ export function createTranslateLoader(http: HttpClient) {
     MyServicesComponent,
     UserComponent,
     CompanyComponent,
-    UserCompaniesComponent
+    UserCompaniesComponent,
+    MyCompanyComponent
   ],
   imports: [
     NgbModule.forRoot(),

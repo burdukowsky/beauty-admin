@@ -41,8 +41,7 @@ export class CompanyService {
   }
 
   createCompany(company: Company): Observable<Company> {
-    return this.http.post<any>(`${environment.apiEndpoint}/companies`, new CompanyRest(company))
-      .map(Company.buildFromResponse);
+    return this.http.post<any>(`${environment.apiEndpoint}/companies`, new CompanyRest(company)).map(Company.buildFromResponse);
   }
 
   constructor(private http: HttpClient) {
