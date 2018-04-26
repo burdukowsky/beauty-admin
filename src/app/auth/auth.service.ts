@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {User} from './user';
+import {Credentials} from './credentials';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
 import {globals} from '../globals';
+import {User} from '../users/user';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +23,7 @@ export class AuthService {
     return !tokenExpired;
   }
 
-  login(user: User) {
+  login(user: Credentials) {
     return this.http.post(environment.apiEndpoint + '/login', user, {responseType: 'text', observe: 'response'});
   }
 
@@ -56,6 +58,24 @@ export class AuthService {
       return null;
     }
     return this.jwtHelperService.decodeToken(token).sub;
+  }
+
+  getUser(): Observable<User> {
+    return this.http.get<any>(`${environment.apiEndpoint}/account`).map(User.buildFromResponse);
+  }
+
+  getUserId(): Observable<number> {
+    return Observable.create(observer => {
+      const userId: string = localStorage.getItem(globals.localStorageKeys.userId);
+      if (userId !== null) {
+        observer.onNext(Number(userId));
+      } else {
+        this.getUser().subscribe(user => {
+          localStorage.setItem(globals.localStorageKeys.userId, String(user.id));
+          observer.onNext(user.id);
+        }, observer.onError);
+      }
+    });
   }
 
 }

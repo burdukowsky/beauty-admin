@@ -1,7 +1,8 @@
 export const globals = {
   localStorageKeys: {
     language: 'language',
-    accessToken: 'access_token'
+    accessToken: 'access_token',
+    userId: 'user_id'
   },
   languageCodes: {
     ru: 'ru',
