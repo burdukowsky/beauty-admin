@@ -4,34 +4,73 @@
 
 <div class="animated fadeIn" *ngIf="!loadErrorMessage">
   <div class="row">
+
     <div class="col-sm-6 col-md-8">
-      <div class="table-responsive">
-        <table class="table">
-          <thead class="thead-dark">
-          <tr>
-            <th scope="col">{{"CATEGORY.NAME" | translate}}</th>
-          </tr>
-          </thead>
-          <ng-container *ngFor="let category of categories">
-            <tbody>
-            <tr class="table-light cursor-pointer" (click)="category.isCollapsed = !category.isCollapsed"
-                [attr.aria-expanded]="!category.isCollapsed">
-              <th scope="row">
-                <i class="fa" aria-hidden="true"
-                   [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
-                {{category.name}}
-              </th>
-            </tr>
-            </tbody>
-            <tbody [ngbCollapse]="category.isCollapsed">
-            <tr *ngFor="let service of category.services" class="table-active">
-              <td class="pt-1 pb-1">{{service.name}}</td>
-            </tr>
-            </tbody>
-          </ng-container>
-        </table>
-      </div>
+
+      <ul class="nav nav-pills flex-column bg-white">
+        <li class="nav-item bg-dark">
+          <strong class="nav-link text-light">{{"COMMON.SERVICE_CATEGORIES" | translate}}</strong>
+        </li>
+        <ng-container *ngFor="let category of categories">
+          <li class="nav-item">
+            <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)"
+               (click)="category.isCollapsed = !category.isCollapsed; setActive(category)"
+               [attr.aria-expanded]="!category.isCollapsed">
+              <i class="fa" aria-hidden="true"
+                 [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
+              {{category.name}}
+            </a>
+          </li>
+          <ul class="nav-pills flex-column" style="list-style: none" [ngbCollapse]="category.isCollapsed">
+            <li class="nav-item">
+              <a *ngFor="let service of category.services" class="nav-link" (click)="setActive(service)"
+                 [class.font-weight-bold]="isActiveService(service)">
+                {{service.name}}
+              </a>
+            </li>
+          </ul>
+        </ng-container>
+      </ul>
+
     </div>
-    <div class="col-sm-6 col-md-4"></div>
+
+    <div class="col-sm-6 col-md-4">
+
+      <form *ngIf="activeCategory" (ngSubmit)="onCategoryFormSubmit()" #categoryForm="ngForm" autocomplete="off">
+        <div class="form-group">
+          <label for="categoryName" class="font-weight-bold">{{"CATEGORY.NAME" | translate}}:*</label>
+          <input type="text" class="form-control" id="categoryName" name="categoryName" required
+                 [(ngModel)]="activeCategory.name">
+        </div>
+        <div class="form-group">
+          <label for="categoryDescription" class="font-weight-bold">{{"CATEGORY.DESCRIPTION" | translate}}:</label>
+          <textarea class="form-control" id="categoryDescription" rows="4" name="categoryDescription"
+                    [(ngModel)]="activeCategory.description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary float-right" [disabled]="!categoryForm.form.valid">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          {{"COMMON.SUBMIT" | translate}}
+        </button>
+      </form>
+
+      <form *ngIf="activeService" (ngSubmit)="onServiceFormSubmit()" #serviceForm="ngForm" autocomplete="off">
+        <div class="form-group">
+          <label for="serviceName" class="font-weight-bold">{{"SERVICE.NAME" | translate}}:*</label>
+          <input type="text" class="form-control" id="serviceName" name="serviceName" required
+                 [(ngModel)]="activeService.name">
+        </div>
+        <div class="form-group">
+          <label for="serviceDescription" class="font-weight-bold">{{"SERVICE.DESCRIPTION" | translate}}:</label>
+          <textarea class="form-control" id="serviceDescription" rows="4" name="serviceDescription"
+                    [(ngModel)]="activeService.description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary float-right" [disabled]="!serviceForm.form.valid">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          {{"COMMON.SUBMIT" | translate}}
+        </button>
+      </form>
+
+    </div>
+
   </div>
 </div>

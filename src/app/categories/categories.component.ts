@@ -13,6 +13,8 @@ import {Service} from './service';
 export class CategoriesComponent implements OnInit {
   categories: Array<Category>;
   loadErrorMessage: boolean;
+  activeCategory: Category;
+  activeService: Service;
 
   constructor(private breadcrumbsService: BreadcrumbsService, private categoryService: CategoryService) {
     const breadcrumbs: Array<Breadcrumb> = [
@@ -26,15 +28,40 @@ export class CategoriesComponent implements OnInit {
     this.getCategories();
   }
 
-  private getCategories() {
+  private getCategories(): void {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = categories;
       // TODO: remove
-      this.categories.forEach(category => category.services = [new Service(1, 'test', 'desc')]);
+      this.categories.forEach(category => category.services = [new Service(Math.random(), 'test', 'desc')]);
     }, error => {
       console.error(error);
       this.loadErrorMessage = true;
     });
   }
 
+  setActive(item: Category | Service): void {
+    if (item instanceof Category) {
+      this.activeService = null;
+      this.activeCategory = item;
+    } else {
+      this.activeCategory = null;
+      this.activeService = item;
+    }
+  }
+
+  isActiveCategory(category: Category): boolean {
+    return this.activeCategory && this.activeCategory.id === category.id;
+  }
+
+  isActiveService(service: Service): boolean {
+    return this.activeService && this.activeService.id === service.id;
+  }
+
+  onCategoryFormSubmit(): void {
+
+  }
+
+  onServiceFormSubmit(): void {
+
+  }
 }

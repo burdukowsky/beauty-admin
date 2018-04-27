@@ -74,5 +74,10 @@
     "ID": "ID",
     "NAME": "Название",
     "DESCRIPTION": "Описание"
+  },
+  "SERVICE": {
+    "ID": "ID",
+    "NAME": "Название",
+    "DESCRIPTION": "Описание"
   }
 }

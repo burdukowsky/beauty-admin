@@ -74,5 +74,10 @@
     "ID": "ID",
     "NAME": "Name",
     "DESCRIPTION": "Description"
+  },
+  "SERVICE": {
+    "ID": "ID",
+    "NAME": "Name",
+    "DESCRIPTION": "Description"
   }
 }
