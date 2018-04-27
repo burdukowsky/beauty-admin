@@ -50,6 +50,13 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.form.value)
         .subscribe(
           (response: HttpResponse<any>) => {
+            /**
+             * Если успешно авторизовались, то удалим информацию о старом userId
+             */
+            localStorage.removeItem(globals.localStorageKeys.userId);
+            /**
+             * Затем сохраним access_token и пустим на сайт
+             */
             const authorizationHeader: string = response.headers.get('Authorization');
             localStorage.setItem(globals.localStorageKeys.accessToken, authorizationHeader.split(' ')[1]);
             this.router.navigateByUrl(this.returnUrl);

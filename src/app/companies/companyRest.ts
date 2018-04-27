@@ -11,6 +11,6 @@ export class CompanyRest {
     this.id = company.id;
     this.name = company.name;
     this.description = company.description;
-    this.owner = company.owner ? `${environment.apiEndpoint}/users/${company.owner.id}` : null;
+    this.owner = company.owner ? `${environment.apiEndpoint}/users/${company.owner.id}` : undefined;
   }
 }

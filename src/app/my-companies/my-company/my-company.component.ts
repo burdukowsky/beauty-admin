@@ -8,6 +8,11 @@ import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../../globals';
 import {Breadcrumb} from '../../utility/breadcrumb';
 import {Location} from '@angular/common';
+import {AuthService} from '../../auth/auth.service';
+import {User} from '../../users/user';
+import {Role} from '../../users/role';
+import {Gender} from '../../users/gender.enum';
+import {RoleEnum} from '../../users/role.enum';
 
 @Component({
   selector: 'app-my-company',
@@ -26,6 +31,7 @@ export class MyCompanyComponent implements OnInit {
               private router: Router,
               private location: Location,
               private companyService: CompanyService,
+              private authService: AuthService,
               private breadcrumbsService: BreadcrumbsService) {
   }
 
@@ -75,8 +81,14 @@ export class MyCompanyComponent implements OnInit {
 
   onSubmit(): void {
     if (this.company.id === null) {
-      this.companyService.createCompany(this.company).subscribe(company => {
-        this.location.back();
+      this.authService.getUserId().subscribe(userId => {
+        this.company.owner = new User(userId, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
+        this.companyService.createCompany(this.company).subscribe(company => {
+          this.location.back();
+        }, error => {
+          this._error.next(true);
+          console.error(error);
+        });
       }, error => {
         this._error.next(true);
         console.error(error);

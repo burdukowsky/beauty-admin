@@ -28,6 +28,7 @@ export class AuthService {
   }
 
   logout(): void {
+    localStorage.removeItem(globals.localStorageKeys.userId);
     localStorage.removeItem(globals.localStorageKeys.accessToken);
     this.router.navigateByUrl('login');
   }
@@ -68,12 +69,12 @@ export class AuthService {
     return Observable.create(observer => {
       const userId: string = localStorage.getItem(globals.localStorageKeys.userId);
       if (userId !== null) {
-        observer.onNext(Number(userId));
+        observer.next(Number(userId));
       } else {
         this.getUser().subscribe(user => {
           localStorage.setItem(globals.localStorageKeys.userId, String(user.id));
-          observer.onNext(user.id);
-        }, observer.onError);
+          observer.next(user.id);
+        }, observer.error);
       }
     });
   }
