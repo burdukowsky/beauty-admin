@@ -18,8 +18,7 @@ export class CategoryService {
   }
 
   updateCategory(category: Category): Observable<Category> {
-    return this.http.patch<any>(`${environment.apiEndpoint}/categories/${category.id}`, category)
-      .map(Category.buildFromResponse);
+    return this.http.patch<any>(`${environment.apiEndpoint}/categories/${category.id}`, category).map(Category.buildFromResponse);
   }
 
   deleteCategory(categoryId: number): Observable<any> {
@@ -34,6 +33,10 @@ export class CategoryService {
     return this.http.get<any>(`${environment.apiEndpoint}/categories/${categoryId}/services`).map(response => {
       return response._embedded.services.map(Service.buildFromResponse);
     });
+  }
+
+  updateService(service: Service): Observable<Service> {
+    return this.http.patch<any>(`${environment.apiEndpoint}/services/${service.id}`, service).map(Service.buildFromResponse);
   }
 
   constructor(private http: HttpClient) {

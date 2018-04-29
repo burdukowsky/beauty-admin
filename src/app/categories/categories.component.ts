@@ -83,7 +83,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   onServiceFormSubmit(): void {
-
+    this.categoryService.updateService(this.activeService).subscribe(service => {
+      this._success.next(true);
+    }, error => {
+      this._error.next(true);
+      console.error(error);
+    });
   }
 
   onCollapseCategoryButtonClick(category: Category, event: MouseEvent): void {
