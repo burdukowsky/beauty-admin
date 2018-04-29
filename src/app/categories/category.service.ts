@@ -16,6 +16,19 @@ export class CategoryService {
     });
   }
 
+  updateCategory(category: Category): Observable<Category> {
+    return this.http.patch<any>(`${environment.apiEndpoint}/categories/${category.id}`, category)
+      .map(Category.buildFromResponse);
+  }
+
+  deleteCategory(categoryId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiEndpoint}/categories/${categoryId}`);
+  }
+
+  createCategory(category: Category): Observable<Category> {
+    return this.http.post<any>(`${environment.apiEndpoint}/categories`, category).map(Category.buildFromResponse);
+  }
+
   constructor(private http: HttpClient) {
   }
 

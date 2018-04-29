@@ -3,6 +3,13 @@
 </ngb-alert>
 
 <div class="animated fadeIn" *ngIf="!loadErrorMessage">
+  <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = false">
+    {{"COMMON.SUCCESS_MESSAGE" | translate}}
+  </ngb-alert>
+  <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = false">
+    {{"COMMON.ERROR_MESSAGE" | translate}}
+  </ngb-alert>
+
   <div class="row">
 
     <div class="col-sm-6 col-md-8">

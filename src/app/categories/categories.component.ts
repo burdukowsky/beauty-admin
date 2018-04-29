@@ -4,6 +4,10 @@ import {BreadcrumbsService} from '../utility/breadcrumbs.service';
 import {Category} from './category';
 import {CategoryService} from './category.service';
 import {Service} from './service';
+import {cloneDeep} from 'lodash';
+import {Subject} from 'rxjs/Subject';
+import {debounceTime} from 'rxjs/operator/debounceTime';
+import {globals} from '../globals';
 
 @Component({
   selector: 'app-categories',
@@ -16,6 +20,11 @@ export class CategoriesComponent implements OnInit {
   activeCategory: Category;
   activeService: Service;
 
+  successMessage: boolean;
+  errorMessage: boolean;
+  private _success = new Subject<boolean>();
+  private _error = new Subject<boolean>();
+
   constructor(private breadcrumbsService: BreadcrumbsService, private categoryService: CategoryService) {
     const breadcrumbs: Array<Breadcrumb> = [
       new Breadcrumb(null, 'COMMON.SERVICE_CATEGORIES', true, true)
@@ -25,6 +34,12 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     this.loadErrorMessage = false;
+
+    this._success.subscribe((state) => this.successMessage = state);
+    this._error.subscribe((state) => this.errorMessage = state);
+    debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
+    debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
+
     this.getCategories();
   }
 
@@ -58,7 +73,15 @@ export class CategoriesComponent implements OnInit {
   }
 
   onCategoryFormSubmit(): void {
-
+    const copy = cloneDeep(this.activeCategory);
+    copy.services = undefined;
+    copy.isCollapsed = undefined;
+    this.categoryService.updateCategory(copy).subscribe(category => {
+      this._success.next(true);
+    }, error => {
+      this._error.next(true);
+      console.error(error);
+    });
   }
 
   onServiceFormSubmit(): void {
