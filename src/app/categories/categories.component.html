@@ -14,32 +14,32 @@
 
     <div class="col-sm-6 col-md-8">
 
-      <ul class="nav nav-pills flex-column bg-white">
-        <li class="nav-item bg-dark">
-          <strong class="nav-link text-light">{{"COMMON.SERVICE_CATEGORIES" | translate}}</strong>
-        </li>
-        <ng-container *ngFor="let category of categories">
-          <li class="nav-item">
-            <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)" (click)="setActive(category)">
-              <button class="btn btn-outline-primary btn-sm collapse-category-button"
-                      (click)="onCollapseCategoryButtonClick(category, $event)"
-                      [attr.aria-expanded]="!category.isCollapsed">
-                <i class="fa" aria-hidden="true"
-                   [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
-              </button>
-              {{category.name}}
-            </a>
-          </li>
-          <ul class="nav-pills flex-column" style="list-style: none" [ngbCollapse]="category.isCollapsed">
+      <span class="nav-link text-light bg-dark font-weight-bold">{{"COMMON.SERVICE_CATEGORIES" | translate}}</span>
+      <div id="category-list-wrapper">
+        <ul class="nav nav-pills flex-column bg-white">
+          <ng-container *ngFor="let category of categories">
             <li class="nav-item">
-              <a *ngFor="let service of category.services" class="nav-link" (click)="setActive(service)"
-                 [class.font-weight-bold]="isActiveService(service)">
-                {{service.name}}
+              <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)" (click)="setActive(category)">
+                <button class="btn btn-outline-primary btn-sm collapse-category-button"
+                        (click)="onCollapseCategoryButtonClick(category, $event)"
+                        [attr.aria-expanded]="!category.isCollapsed">
+                  <i class="fa" aria-hidden="true"
+                     [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
+                </button>
+                {{category.name}}
               </a>
             </li>
-          </ul>
-        </ng-container>
-      </ul>
+            <ul class="nav-pills flex-column" style="list-style: none" [ngbCollapse]="category.isCollapsed">
+              <li class="nav-item">
+                <a *ngFor="let service of category.services" class="nav-link" (click)="setActive(service)"
+                   [class.font-weight-bold]="isActiveService(service)">
+                  {{service.name}}
+                </a>
+              </li>
+            </ul>
+          </ng-container>
+        </ul>
+      </div>
 
     </div>
 

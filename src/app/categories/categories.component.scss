@@ -5,3 +5,8 @@
   padding-bottom: 0;
   margin-right: 4px;
 }
+
+#category-list-wrapper {
+  max-height: 75vh !important;
+  overflow-y: auto;
+}
