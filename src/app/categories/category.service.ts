@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Category} from './category';
 import {environment} from '../../environments/environment';
+import {Service} from './service';
 
 @Injectable()
 export class CategoryService {
@@ -27,6 +28,12 @@ export class CategoryService {
 
   createCategory(category: Category): Observable<Category> {
     return this.http.post<any>(`${environment.apiEndpoint}/categories`, category).map(Category.buildFromResponse);
+  }
+
+  getServicesByCategoryId(categoryId: number): Observable<Array<Service>> {
+    return this.http.get<any>(`${environment.apiEndpoint}/categories/${categoryId}/services`).map(response => {
+      return response._embedded.services.map(Service.buildFromResponse);
+    });
   }
 
   constructor(private http: HttpClient) {

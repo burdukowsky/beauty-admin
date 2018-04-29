@@ -46,8 +46,6 @@ export class CategoriesComponent implements OnInit {
   private getCategories(): void {
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = categories;
-      // TODO: remove
-      this.categories.forEach(category => category.services = [new Service(Math.random(), 'test', 'desc')]);
     }, error => {
       console.error(error);
       this.loadErrorMessage = true;
@@ -86,5 +84,20 @@ export class CategoriesComponent implements OnInit {
 
   onServiceFormSubmit(): void {
 
+  }
+
+  onCollapseCategoryButtonClick(category: Category, event: MouseEvent): void {
+    event.stopPropagation();
+    if (!category.isCollapsed || category.services !== null) {
+      category.isCollapsed = !category.isCollapsed;
+      return;
+    }
+    this.categoryService.getServicesByCategoryId(category.id).subscribe(services => {
+      category.services = services;
+      category.isCollapsed = !category.isCollapsed;
+    }, error => {
+      this._error.next(true);
+      console.error(error);
+    });
   }
 }
