@@ -26,7 +26,7 @@
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
     "@types/lodash": "^4.14.108",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.1.0",
     "core-js": "^2.4.1",
     "flag-icon-css": "^2.9.0",
     "font-awesome": "^4.7.0",

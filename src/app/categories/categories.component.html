@@ -20,11 +20,13 @@
         </li>
         <ng-container *ngFor="let category of categories">
           <li class="nav-item">
-            <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)"
-               (click)="category.isCollapsed = !category.isCollapsed; setActive(category)"
-               [attr.aria-expanded]="!category.isCollapsed">
-              <i class="fa" aria-hidden="true"
-                 [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
+            <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)" (click)="setActive(category)">
+              <button class="btn btn-outline-primary btn-sm collapse-category-button"
+                      (click)="category.isCollapsed = !category.isCollapsed; $event.stopPropagation()"
+                      [attr.aria-expanded]="!category.isCollapsed">
+                <i class="fa" aria-hidden="true"
+                   [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
+              </button>
               {{category.name}}
             </a>
           </li>
