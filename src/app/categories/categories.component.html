@@ -14,7 +14,14 @@
 
     <div class="col-sm-6 col-md-8">
 
-      <span class="nav-link text-light bg-dark font-weight-bold">{{"COMMON.SERVICE_CATEGORIES" | translate}}</span>
+      <div class="nav-link text-light bg-dark font-weight-bold">
+        {{"COMMON.SERVICE_CATEGORIES" | translate}}
+        <button class="btn btn-outline-light btn-sm pt-0 pb-0 float-right" (click)="onAddCategoryButtonClick()"
+                [disabled]="addingMode" [class.cursor-not-allowed]="addingMode">
+          <i class="fa fa-plus"></i>
+          {{"COMMON.ADD" | translate}}
+        </button>
+      </div>
       <div id="category-list-wrapper">
         <ul class="nav nav-pills flex-column bg-white">
           <ng-container *ngFor="let category of categories">
@@ -22,14 +29,15 @@
               <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)" (click)="setActive(category)">
                 <button class="btn btn-outline-primary btn-sm collapse-category-button"
                         (click)="onCollapseCategoryButtonClick(category, $event)"
-                        [attr.aria-expanded]="!category.isCollapsed">
+                        [attr.aria-expanded]="!category.isCollapsed"
+                        *ngIf="category.id !== null">
                   <i class="fa" aria-hidden="true"
                      [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
                 </button>
                 {{category.name}}
               </a>
             </li>
-            <ul class="nav-pills flex-column" style="list-style: none" [ngbCollapse]="category.isCollapsed">
+            <ul class="nav-pills flex-column list-unstyled pl-5" [ngbCollapse]="category.isCollapsed">
               <li class="nav-item">
                 <a *ngFor="let service of category.services" class="nav-link" (click)="setActive(service)"
                    [class.font-weight-bold]="isActiveService(service)">

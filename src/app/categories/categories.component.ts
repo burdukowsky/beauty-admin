@@ -19,6 +19,7 @@ export class CategoriesComponent implements OnInit {
   loadErrorMessage: boolean;
   activeCategory: Category;
   activeService: Service;
+  addingMode: boolean;
 
   successMessage: boolean;
   errorMessage: boolean;
@@ -40,6 +41,7 @@ export class CategoriesComponent implements OnInit {
     debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
     debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
 
+    this.addingMode = false;
     this.getCategories();
   }
 
@@ -74,6 +76,17 @@ export class CategoriesComponent implements OnInit {
     const copy = cloneDeep(this.activeCategory);
     copy.services = undefined;
     copy.isCollapsed = undefined;
+    if (copy.id === null) {
+      this.categoryService.createCategory(copy).subscribe(category => {
+        this.categories[this.categories.length - 1] = category;
+        this.activeCategory = this.categories[this.categories.length - 1];
+        this.addingMode = false;
+      }, error => {
+        this._error.next(true);
+        console.error(error);
+      });
+      return;
+    }
     this.categoryService.updateCategory(copy).subscribe(category => {
       this._success.next(true);
     }, error => {
@@ -104,5 +117,12 @@ export class CategoriesComponent implements OnInit {
       this._error.next(true);
       console.error(error);
     });
+  }
+
+  onAddCategoryButtonClick(): void {
+    const newCategory = new Category(null, '* Новая компания', '', null);
+    this.categories.push(newCategory);
+    this.setActive(newCategory);
+    this.addingMode = true;
   }
 }
