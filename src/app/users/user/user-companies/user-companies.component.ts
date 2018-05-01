@@ -5,6 +5,7 @@ import {User} from '../../user';
 import {Company} from '../../../companies/company';
 import {UserService} from '../../user.service';
 import {ActivatedRoute} from '@angular/router';
+import {CompanyService} from '../../../companies/company.service';
 
 @Component({
   selector: 'app-user-companies',
@@ -16,7 +17,10 @@ export class UserCompaniesComponent implements OnInit {
   companies: Array<Company>;
   loadErrorMessage: boolean;
 
-  constructor(private breadcrumbsService: BreadcrumbsService, private userService: UserService, private route: ActivatedRoute) {
+  constructor(private breadcrumbsService: BreadcrumbsService,
+              private userService: UserService,
+              private companyService: CompanyService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -36,7 +40,7 @@ export class UserCompaniesComponent implements OnInit {
       ];
       this.breadcrumbsService.setBreadcrumbs(breadcrumbs);
 
-      this.userService.getUserCompanies(userId).subscribe(companies => {
+      this.companyService.getCompaniesByOwnerId(userId).subscribe(companies => {
         this.companies = companies;
       }, error => {
         console.error(error);

@@ -11,6 +11,7 @@ export class CategoryService {
   getCategories(): Observable<Array<Category>> {
     let params = new HttpParams();
     params = params.append('limit', '1000');
+    params = params.append('sort', 'name');
 
     return this.http.get<any>(`${environment.apiEndpoint}/categories`, {params: params}).map(response => {
       return response._embedded.categories.map(Category.buildFromResponse);
@@ -30,9 +31,11 @@ export class CategoryService {
   }
 
   getServicesByCategoryId(categoryId: number): Observable<Array<Service>> {
-    return this.http.get<any>(`${environment.apiEndpoint}/categories/${categoryId}/services`).map(response => {
-      return response._embedded.services.map(Service.buildFromResponse);
-    });
+    let params = new HttpParams();
+    params = params.append('id', categoryId.toString());
+
+    return this.http.get<any>(`${environment.apiEndpoint}/services/search/findAllByCategory_IdOrderByNameAsc`, {params: params})
+      .map(response => response._embedded.services.map(Service.buildFromResponse));
   }
 
   updateService(service: Service): Observable<Service> {

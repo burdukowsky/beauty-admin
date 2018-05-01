@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {UsersResponse} from './usersResponse';
 import {User} from './user';
 import {RoleEnum} from './role.enum';
-import {Company} from '../companies/company';
 
 @Injectable()
 export class UserService {
@@ -15,6 +14,7 @@ export class UserService {
     let params = new HttpParams();
     params = params.append('page', (page - 1).toString());
     params = params.append('limit', limit.toString());
+    params = params.append('sort', 'email');
 
     return this.http.get<any>(`${environment.apiEndpoint}/users`, {params: params}).map(response =>
       new UsersResponse(response._embedded.users, response.page.totalElements));
@@ -43,13 +43,8 @@ export class UserService {
   getUsersByRole(role: RoleEnum): Observable<Array<User>> {
     let params = new HttpParams();
     params = params.append('role', role);
-    return this.http.get<any>(`${environment.apiEndpoint}/users/search/findAllByRolesName`, {params: params})
+    return this.http.get<any>(`${environment.apiEndpoint}/users/search/findAllByRolesNameOrderByFirstNameAscLastNameAsc`, {params: params})
       .map(response => response._embedded.users.map(User.buildFromResponse));
-  }
-
-  getUserCompanies(userId: number): Observable<Array<Company>> {
-    return this.http.get<any>(`${environment.apiEndpoint}/users/${userId}/companies`)
-      .map(response => response._embedded.companies.map(Company.buildFromResponse));
   }
 
   constructor(private http: HttpClient) {

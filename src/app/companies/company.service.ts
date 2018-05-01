@@ -14,6 +14,7 @@ export class CompanyService {
     let params = new HttpParams();
     params = params.append('page', (page - 1).toString());
     params = params.append('limit', limit.toString());
+    params = params.append('sort', 'name');
 
     return this.http.get<any>(`${environment.apiEndpoint}/companies`, {params: params}).map(response =>
       new CompaniesResponse(response._embedded.companies, response.page.totalElements));
@@ -23,7 +24,7 @@ export class CompanyService {
     let params = new HttpParams();
     params = params.append('id', ownerId.toString());
 
-    return this.http.get<any>(`${environment.apiEndpoint}/companies/search/findAllByOwner_Id`, {params: params})
+    return this.http.get<any>(`${environment.apiEndpoint}/companies/search/findAllByOwner_IdOrderByNameAsc`, {params: params})
       .map(response => response._embedded.companies.map(Company.buildFromResponse));
   }
 
