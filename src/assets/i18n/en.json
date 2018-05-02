@@ -19,7 +19,8 @@
     "ERROR_MESSAGE": "An error has occurred",
     "LOAD_ERROR_MESSAGE": "Error receiving data",
     "DELETE": "Delete",
-    "ADD": "Add"
+    "ADD": "Add",
+    "NO_ITEMS": "No items"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"

@@ -46,6 +46,9 @@
               </button>
             </a>
             <ul class="nav-pills flex-column list-unstyled pl-5" [ngbCollapse]="category.isCollapsed">
+              <li class="nav-item" *ngIf="category.services && category.services.length === 0">
+                <span class="nav-link font-italic text-secondary">{{"COMMON.NO_ITEMS" | translate}}</span>
+              </li>
               <li class="nav-item service-item" *ngFor="let service of category.services">
                 <a class="nav-link" (click)="setActive(service)"
                    [class.font-weight-bold]="isActiveService(service)">
