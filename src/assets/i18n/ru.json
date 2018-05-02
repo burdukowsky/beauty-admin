@@ -73,11 +73,13 @@
   "CATEGORY": {
     "ID": "ID",
     "NAME": "Название",
-    "DESCRIPTION": "Описание"
+    "DESCRIPTION": "Описание",
+    "ADD": "Добавить категорию"
   },
   "SERVICE": {
     "ID": "ID",
     "NAME": "Название",
-    "DESCRIPTION": "Описание"
+    "DESCRIPTION": "Описание",
+    "ADD": "Добавить услугу"
   }
 }

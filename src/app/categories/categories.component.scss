@@ -10,3 +10,12 @@
   max-height: 75vh !important;
   overflow-y: auto;
 }
+
+.category-item {
+  .add-service-button {
+    display: none;
+  }
+  &:hover .add-service-button {
+    display: block;
+  }
+}

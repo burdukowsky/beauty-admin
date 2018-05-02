@@ -25,7 +25,7 @@
       <div id="category-list-wrapper">
         <ul class="nav nav-pills flex-column bg-white">
           <ng-container *ngFor="let category of categories">
-            <li class="nav-item">
+            <li class="nav-item category-item">
               <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)" (click)="setActive(category)">
                 <button class="btn btn-outline-primary btn-sm collapse-category-button"
                         (click)="onCollapseCategoryButtonClick(category, $event)"
@@ -35,6 +35,12 @@
                      [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
                 </button>
                 {{category.name}}
+                <button class="btn btn-outline-dark btn-sm pt-0 pb-0 float-right add-service-button"
+                        [disabled]="addingMode" [class.cursor-not-allowed]="addingMode"
+                        (click)="onAddServiceButtonClick(category, $event)">
+                  <i class="fa fa-plus"></i>
+                  {{"SERVICE.ADD" | translate}}
+                </button>
               </a>
             </li>
             <ul class="nav-pills flex-column list-unstyled pl-5" [ngbCollapse]="category.isCollapsed">

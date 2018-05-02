@@ -73,11 +73,13 @@
   "CATEGORY": {
     "ID": "ID",
     "NAME": "Name",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "ADD": "Add category"
   },
   "SERVICE": {
     "ID": "ID",
     "NAME": "Name",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "ADD": "Add service"
   }
 }

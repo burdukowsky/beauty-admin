@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Category} from './category';
 import {environment} from '../../environments/environment';
 import {Service} from './service';
+import {ServiceRest} from './serviceRest';
 
 @Injectable()
 export class CategoryService {
@@ -36,6 +37,10 @@ export class CategoryService {
 
     return this.http.get<any>(`${environment.apiEndpoint}/services/search/findAllByCategory_IdOrderByNameAsc`, {params: params})
       .map(response => response._embedded.services.map(Service.buildFromResponse));
+  }
+
+  createService(service: Service): Observable<Service> {
+    return this.http.post<any>(`${environment.apiEndpoint}/services`, new ServiceRest(service)).map(Service.buildFromResponse);
   }
 
   updateService(service: Service): Observable<Service> {

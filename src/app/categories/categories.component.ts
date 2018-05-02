@@ -81,6 +81,7 @@ export class CategoriesComponent implements OnInit {
         this.categories[this.categories.length - 1] = category;
         this.activeCategory = this.categories[this.categories.length - 1];
         this.addingMode = false;
+        this._success.next(true);
       }, error => {
         this._error.next(true);
         console.error(error);
@@ -96,7 +97,22 @@ export class CategoriesComponent implements OnInit {
   }
 
   onServiceFormSubmit(): void {
-    this.categoryService.updateService(this.activeService).subscribe(service => {
+    if (this.activeService.id === null) {
+      this.categoryService.createService(this.activeService).subscribe(service => {
+        const category: Category = this.activeService.category;
+        category.services[category.services.length - 1] = service;
+        this.activeService = category.services[category.services.length - 1];
+        this.addingMode = false;
+        this._success.next(true);
+      }, error => {
+        this._error.next(true);
+        console.error(error);
+      });
+      return;
+    }
+    const copy = cloneDeep(this.activeService);
+    copy.category = undefined;
+    this.categoryService.updateService(copy).subscribe(service => {
       this._success.next(true);
     }, error => {
       this._error.next(true);
@@ -120,9 +136,32 @@ export class CategoriesComponent implements OnInit {
   }
 
   onAddCategoryButtonClick(): void {
-    const newCategory = new Category(null, '* Новая компания', '', null);
+    const newCategory = new Category(null, '* Новая категория', '', null);
     this.categories.push(newCategory);
     this.setActive(newCategory);
     this.addingMode = true;
+  }
+
+  private addNewServiceToCategory(category): void {
+    const newService = new Service(null, '* Новая услуга', '', category);
+    category.isCollapsed = false;
+    category.services.push(newService);
+    this.setActive(newService);
+    this.addingMode = true;
+  }
+
+  onAddServiceButtonClick(category: Category, event: MouseEvent): void {
+    event.stopPropagation();
+    if (category.services === null) {
+      this.categoryService.getServicesByCategoryId(category.id).subscribe(services => {
+        category.services = services;
+        this.addNewServiceToCategory(category);
+      }, error => {
+        this._error.next(true);
+        console.error(error);
+      });
+      return;
+    }
+    this.addNewServiceToCategory(category);
   }
 }
