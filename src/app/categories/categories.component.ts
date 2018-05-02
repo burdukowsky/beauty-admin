@@ -171,6 +171,7 @@ export class CategoriesComponent implements OnInit {
       const index: number = category.services.indexOf(service);
       if (index !== -1) {
         category.services.splice(index, 1);
+        this.setActive(null);
       }
     }, error => {
       this._error.next(true);
