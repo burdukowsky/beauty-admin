@@ -12,10 +12,10 @@
 }
 
 .category-item {
-  .add-service-button {
+  .add-service-button, .delete-category-button {
     display: none;
   }
-  &:hover .add-service-button {
+  &:hover .add-service-button, &:hover .delete-category-button {
     display: block;
   }
   .service-item {

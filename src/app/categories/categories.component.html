@@ -34,9 +34,13 @@
                    [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
               </button>
               {{category.name}}
+              <button class="btn btn-sm btn-outline-danger pt-0 pb-0 ml-2 float-right delete-category-button"
+                      (click)="onDeleteCategoryButtonClick(category, $event)" *ngIf="category.id !== null">
+                <i class="fa fa-trash"></i>
+              </button>
               <button class="btn btn-outline-dark btn-sm pt-0 pb-0 float-right add-service-button"
                       [disabled]="addingMode" [class.cursor-not-allowed]="addingMode"
-                      (click)="onAddServiceButtonClick(category, $event)">
+                      (click)="onAddServiceButtonClick(category, $event)" *ngIf="category.id !== null">
                 <i class="fa fa-plus"></i>
                 {{"SERVICE.ADD" | translate}}
               </button>
