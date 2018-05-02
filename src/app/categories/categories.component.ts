@@ -164,4 +164,17 @@ export class CategoriesComponent implements OnInit {
     }
     this.addNewServiceToCategory(category);
   }
+
+  onDeleteServiceButtonClick(category: Category, service: Service, event: MouseEvent) {
+    event.stopPropagation();
+    this.categoryService.deleteService(service.id).subscribe(response => {
+      const index: number = category.services.indexOf(service);
+      if (index !== -1) {
+        category.services.splice(index, 1);
+      }
+    }, error => {
+      this._error.next(true);
+      console.error(error);
+    });
+  }
 }

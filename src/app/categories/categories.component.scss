@@ -18,4 +18,12 @@
   &:hover .add-service-button {
     display: block;
   }
+  .service-item {
+    .delete-service-button {
+      display: none;
+    }
+    &:hover .delete-service-button {
+      display: block;
+    }
+  }
 }

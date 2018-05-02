@@ -47,6 +47,10 @@ export class CategoryService {
     return this.http.patch<any>(`${environment.apiEndpoint}/services/${service.id}`, service).map(Service.buildFromResponse);
   }
 
+  deleteService(serviceId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiEndpoint}/services/${serviceId}`);
+  }
+
   constructor(private http: HttpClient) {
   }
 

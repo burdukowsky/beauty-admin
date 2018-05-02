@@ -24,34 +24,36 @@
       </div>
       <div id="category-list-wrapper">
         <ul class="nav nav-pills flex-column bg-white">
-          <ng-container *ngFor="let category of categories">
-            <li class="nav-item category-item">
-              <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)" (click)="setActive(category)">
-                <button class="btn btn-outline-primary btn-sm collapse-category-button"
-                        (click)="onCollapseCategoryButtonClick(category, $event)"
-                        [attr.aria-expanded]="!category.isCollapsed"
-                        *ngIf="category.id !== null">
-                  <i class="fa" aria-hidden="true"
-                     [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
-                </button>
-                {{category.name}}
-                <button class="btn btn-outline-dark btn-sm pt-0 pb-0 float-right add-service-button"
-                        [disabled]="addingMode" [class.cursor-not-allowed]="addingMode"
-                        (click)="onAddServiceButtonClick(category, $event)">
-                  <i class="fa fa-plus"></i>
-                  {{"SERVICE.ADD" | translate}}
-                </button>
-              </a>
-            </li>
+          <li class="nav-item category-item" *ngFor="let category of categories">
+            <a class="nav-link" [class.font-weight-bold]="isActiveCategory(category)" (click)="setActive(category)">
+              <button class="btn btn-outline-primary btn-sm collapse-category-button"
+                      (click)="onCollapseCategoryButtonClick(category, $event)"
+                      [attr.aria-expanded]="!category.isCollapsed"
+                      *ngIf="category.id !== null">
+                <i class="fa" aria-hidden="true"
+                   [ngClass]="{'fa-caret-right': category.isCollapsed, 'fa-caret-down': !category.isCollapsed}"></i>
+              </button>
+              {{category.name}}
+              <button class="btn btn-outline-dark btn-sm pt-0 pb-0 float-right add-service-button"
+                      [disabled]="addingMode" [class.cursor-not-allowed]="addingMode"
+                      (click)="onAddServiceButtonClick(category, $event)">
+                <i class="fa fa-plus"></i>
+                {{"SERVICE.ADD" | translate}}
+              </button>
+            </a>
             <ul class="nav-pills flex-column list-unstyled pl-5" [ngbCollapse]="category.isCollapsed">
-              <li class="nav-item">
-                <a *ngFor="let service of category.services" class="nav-link" (click)="setActive(service)"
+              <li class="nav-item service-item" *ngFor="let service of category.services">
+                <a class="nav-link" (click)="setActive(service)"
                    [class.font-weight-bold]="isActiveService(service)">
                   {{service.name}}
+                  <button class="btn btn-sm btn-outline-danger pt-0 pb-0 float-right delete-service-button"
+                          (click)="onDeleteServiceButtonClick(category, service, $event)" *ngIf="service.id !== null">
+                    <i class="fa fa-trash"></i>
+                  </button>
                 </a>
               </li>
             </ul>
-          </ng-container>
+          </li>
         </ul>
       </div>
 
