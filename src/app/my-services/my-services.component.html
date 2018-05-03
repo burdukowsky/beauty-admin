@@ -1,3 +1,27 @@
-<p>
-  my-services works!
-</p>
+<ngb-alert *ngIf="loadErrorMessage" type="danger" [dismissible]="false">
+  {{"COMMON.LOAD_ERROR_MESSAGE" | translate}}
+</ngb-alert>
+
+<div class="animated fadeIn" *ngIf="!loadErrorMessage && companies">
+  <ngb-alert type="primary" [dismissible]="false" *ngIf="companies.length === 0">
+    <p class="font-weight-bold">{{"MY_SERVICES.NEED_ADD_COMPANY" | translate}}</p>
+    <button class="btn btn-primary" routerLink="/new-my-company">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      {{"COMMON.ADD" | translate}}
+    </button>
+  </ngb-alert>
+  <ng-container *ngIf="companies.length > 0">
+    <div class="row justify-content-end" *ngIf="companies.length > 1">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="currentCompanySelect" class="font-weight-bold">{{"MY_SERVICES.COMPANY" | translate}}:</label>
+          <select #selectElem class="form-control" id="currentCompanySelect"
+                  (change)="setChosenCompany(selectElem.value)">
+            <option *ngFor="let company of companies" [label]="company.name" [value]="company.id"></option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+</div>

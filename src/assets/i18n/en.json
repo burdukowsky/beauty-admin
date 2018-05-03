@@ -82,5 +82,9 @@
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "ADD": "Add service"
+  },
+  "MY_SERVICES": {
+    "COMPANY": "Company",
+    "NEED_ADD_COMPANY": "You need to add a company to set services!"
   }
 }
