@@ -1,0 +1,9 @@
+ul#categoryWithServicesList {
+  column-count: 3;
+  @media (max-width: 1150px) {
+    column-count: 2;
+  }
+  @media (max-width: 600px) {
+    column-count: 1;
+  }
+}

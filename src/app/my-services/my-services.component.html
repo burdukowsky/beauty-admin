@@ -10,6 +10,14 @@
       {{"COMMON.ADD" | translate}}
     </button>
   </ngb-alert>
+
+  <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = false">
+    {{"COMMON.SUCCESS_MESSAGE" | translate}}
+  </ngb-alert>
+  <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = false">
+    {{"COMMON.ERROR_MESSAGE" | translate}}
+  </ngb-alert>
+
   <ng-container *ngIf="companies.length > 0">
     <div class="row justify-content-end" *ngIf="companies.length > 1">
       <div class="col-sm-6">
@@ -22,6 +30,23 @@
         </div>
       </div>
     </div>
-
+    <form>
+      <ul id="categoryWithServicesList" class="list-unstyled">
+        <li *ngFor="let category of categories">
+          <fieldset>
+            <legend>{{category.name}}</legend>
+            <div class="custom-control custom-checkbox" *ngFor="let service of category.services">
+              <input class="custom-control-input" type="checkbox" [id]="service.id"
+                     (change)="onServiceCheck(service)" [checked]="serviceExistsInChosenCompany(service)">
+              <label class="custom-control-label" [for]="service.id">{{service.name}}</label>
+            </div>
+          </fieldset>
+        </li>
+      </ul>
+      <button type="button" class="btn btn-primary float-right" (click)="onSubmit()">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        {{"COMMON.SUBMIT" | translate}}
+      </button>
+    </form>
   </ng-container>
 </div>

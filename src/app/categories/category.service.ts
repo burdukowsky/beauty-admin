@@ -51,6 +51,16 @@ export class CategoryService {
     return this.http.delete<any>(`${environment.apiEndpoint}/services/${serviceId}`);
   }
 
+  getCategoriesWithServices(): Observable<Array<Category>> {
+    return this.http.get<any>(`${environment.apiEndpoint}/categories-with-services`).map(response => {
+      return response.map(category => {
+        return new Category(category.id, category.name, category.description, category.services.map(service => {
+          return new Service(service.id, service.name, service.description, null);
+        }));
+      });
+    });
+  }
+
   constructor(private http: HttpClient) {
   }
 

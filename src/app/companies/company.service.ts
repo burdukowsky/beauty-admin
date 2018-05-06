@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {CompaniesResponse} from './companiesResponse';
 import {environment} from '../../environments/environment';
 import {Company} from './company';
 import {User} from '../users/user';
 import {CompanyRest} from './companyRest';
+import {Service} from '../categories/service';
 
 @Injectable()
 export class CompanyService {
@@ -47,6 +48,17 @@ export class CompanyService {
 
   createCompany(company: Company): Observable<Company> {
     return this.http.post<any>(`${environment.apiEndpoint}/companies`, new CompanyRest(company)).map(Company.buildFromResponse);
+  }
+
+  getServicesByCompanyId(companyId: number): Observable<Array<Service>> {
+    return this.http.get<any>(`${environment.apiEndpoint}/companies/${companyId}/services`)
+      .map(response => response._embedded.services.map(Service.buildFromResponse));
+  }
+
+  replaceCompanyServices(companyId: number, servicesIds: Array<number>): Observable<any> {
+    const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'text/uri-list');
+    const body: string = servicesIds.map(id => `${environment.apiEndpoint}/services/${id}`).join('\n');
+    return this.http.put(`${environment.apiEndpoint}/companies/${companyId}/services`, body, {headers: headers});
   }
 
   constructor(private http: HttpClient) {
