@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   user: User;
   genders = Gender;
   gendersKeys: Array<string>;
+  ngbDatepickerConfig = globals.ngbDatepickerConfig;
   loadErrorMessage: boolean;
   successMessage: boolean;
   errorMessage: boolean;

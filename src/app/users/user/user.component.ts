@@ -22,6 +22,7 @@ export class UserComponent implements OnInit {
   gendersKeys: Array<string>;
   user: User;
   roles: Array<Role>;
+  ngbDatepickerConfig = globals.ngbDatepickerConfig;
   loadErrorMessage: boolean;
   successMessage: boolean;
   errorMessage: boolean;

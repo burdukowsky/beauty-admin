@@ -9,5 +9,9 @@ export const globals = {
     en: 'en'
   },
   roleAuthorityPrefix: 'ROLE_',
-  alertTimeout: 5000
+  alertTimeout: 5000,
+  ngbDatepickerConfig: {
+    minDate: {year: 1900, month: 1, day: 1},
+    maxDate: {year: 2099, month: 12, day: 31}
+  }
 };
