@@ -15,6 +15,7 @@ import {UserComponent} from './users/user/user.component';
 import {CompanyComponent} from './companies/company/company.component';
 import {UserCompaniesComponent} from './users/user/user-companies/user-companies.component';
 import {MyCompanyComponent} from './my-companies/my-company/my-company.component';
+import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,10 @@ const routes: Routes = [
         component: MyServicesComponent,
         canActivate: [AuthGuard],
         data: {roles: ['MEMBER']}
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       }
     ]
   },

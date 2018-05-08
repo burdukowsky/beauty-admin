@@ -65,6 +65,10 @@ export class AuthService {
     return this.http.get<any>(`${environment.apiEndpoint}/account`).map(User.buildFromResponse);
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.http.patch<any>(`${environment.apiEndpoint}/account`, user).map(User.buildFromResponse);
+  }
+
   getUserId(): Observable<number> {
     return Observable.create(observer => {
       const userId: string = localStorage.getItem(globals.localStorageKeys.userId);
