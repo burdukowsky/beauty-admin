@@ -19,7 +19,7 @@ import {BreadcrumbsService} from '../../utility/breadcrumbs.service';
 })
 export class UserComponent implements OnInit {
   genders = Gender;
-  gendersKeys;
+  gendersKeys: Array<string>;
   user: User;
   roles: Array<Role>;
   loadErrorMessage: boolean;
