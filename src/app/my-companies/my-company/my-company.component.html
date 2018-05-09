@@ -38,9 +38,11 @@
                [(ngModel)]="company.description">
       </div>
     </div>
-    <button type="submit" class="btn btn-primary float-right" [disabled]="!companyForm.form.valid">
-      <i class="fa fa-paper-plane" aria-hidden="true"></i>
-      {{"COMMON.SUBMIT" | translate}}
-    </button>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" [disabled]="!companyForm.form.valid">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        {{"COMMON.SUBMIT" | translate}}
+      </button>
+    </div>
   </form>
 </div>

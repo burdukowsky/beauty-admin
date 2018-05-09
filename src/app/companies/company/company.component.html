@@ -49,10 +49,12 @@
         </select>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary float-right" [disabled]="!companyForm.form.valid">
-      <i class="fa fa-paper-plane" aria-hidden="true"></i>
-      {{"COMMON.SUBMIT" | translate}}
-    </button>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" [disabled]="!companyForm.form.valid">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        {{"COMMON.SUBMIT" | translate}}
+      </button>
+    </div>
   </form>
   <a routerLink="/users/{{company.owner.id}}" *ngIf="company.id !== null && company.owner" class="btn btn-info">
     <i class="fa fa-user" aria-hidden="true"></i>

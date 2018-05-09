@@ -103,10 +103,12 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary float-right" [disabled]="!userForm.form.valid">
-      <i class="fa fa-paper-plane" aria-hidden="true"></i>
-      {{"COMMON.SUBMIT" | translate}}
-    </button>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        {{"COMMON.SUBMIT" | translate}}
+      </button>
+    </div>
   </form>
   <a routerLink="/users/{{user.id}}/companies" *ngIf="user.id !== null && isMember()" class="btn btn-info">
     <i class="fa fa-building" aria-hidden="true"></i>

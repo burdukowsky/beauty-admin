@@ -43,10 +43,12 @@
           </fieldset>
         </li>
       </ul>
-      <button type="button" class="btn btn-primary float-right" (click)="onSubmit()">
-        <i class="fa fa-paper-plane" aria-hidden="true"></i>
-        {{"COMMON.SUBMIT" | translate}}
-      </button>
+      <div class="text-right">
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          {{"COMMON.SUBMIT" | translate}}
+        </button>
+      </div>
     </form>
   </ng-container>
 </div>
