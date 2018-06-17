@@ -34,8 +34,19 @@
         {{"COMPANY.DESCRIPTION" | translate}}:
       </label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="description" name="description"
-               [(ngModel)]="company.description">
+        <textarea class="form-control" id="description" name="description" rows="4"
+                  [(ngModel)]="company.description"></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="type" class="col-sm-2 col-form-label font-weight-bold">
+        {{"COMPANY.TYPE" | translate}}:
+      </label>
+      <div class="col-sm-10">
+        <select class="form-control" id="type" name="type" [(ngModel)]="company.companyType">
+          <option *ngFor="let key of companyTypesKeys" [value]="companyTypes[key]"
+                  [label]="'COMPANY.TYPES.' + companyTypes[key] | translate"></option>
+        </select>
       </div>
     </div>
     <div class="text-right">

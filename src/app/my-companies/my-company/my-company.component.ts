@@ -13,6 +13,7 @@ import {User} from '../../users/user';
 import {Role} from '../../users/role';
 import {Gender} from '../../users/gender.enum';
 import {RoleEnum} from '../../users/role.enum';
+import {CompanyType} from '../../companies/companyType.enum';
 
 @Component({
   selector: 'app-my-company',
@@ -21,6 +22,8 @@ import {RoleEnum} from '../../users/role.enum';
 })
 export class MyCompanyComponent implements OnInit {
   company: Company;
+  companyTypes = CompanyType;
+  companyTypesKeys = Object.keys(this.companyTypes);
   loadErrorMessage: boolean;
   successMessage: boolean;
   errorMessage: boolean;
@@ -47,7 +50,7 @@ export class MyCompanyComponent implements OnInit {
 
   getCompany(): void {
     if (this.router.url === '/new-my-company') {
-      this.company = new Company(null, '', '', null);
+      this.company = new Company(null, '', '', CompanyType.Salon, null);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/my-companies', 'COMMON.MY_COMPANIES', true, false),
         new Breadcrumb(null, 'COMMON.ADD', true, true)

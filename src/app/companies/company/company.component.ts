@@ -13,6 +13,7 @@ import {UserService} from '../../users/user.service';
 import {RoleEnum} from '../../users/role.enum';
 import {Gender} from '../../users/gender.enum';
 import {Role} from '../../users/role';
+import {CompanyType} from '../companyType.enum';
 
 @Component({
   selector: 'app-company',
@@ -20,6 +21,8 @@ import {Role} from '../../users/role';
   styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
+  companyTypes = CompanyType;
+  companyTypesKeys = Object.keys(this.companyTypes);
   company: Company;
   ownerId: string;
   members: Array<User>;
@@ -50,7 +53,7 @@ export class CompanyComponent implements OnInit {
 
   getCompany(): void {
     if (this.router.url === '/new-company') {
-      this.company = new Company(null, '', '', null);
+      this.company = new Company(null, '', '', CompanyType.Salon, null);
       this.company.owner = new User(null, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),

@@ -60,8 +60,13 @@
     "NAME": "Name",
     "DESCRIPTION": "Description",
     "SERVICES": "Services",
+    "TYPE": "Type",
     "OWNER": "Owner",
-    "COMPANY_OWNER": "Company owner"
+    "COMPANY_OWNER": "Company owner",
+    "TYPES": {
+      "SALON": "Salon",
+      "MASTER": "Master"
+    }
   },
   "DASHBOARD": {
     "USERS_IN_SYSTEM": "Users in the system",

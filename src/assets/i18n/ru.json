@@ -60,8 +60,13 @@
     "NAME": "Название",
     "DESCRIPTION": "Описание",
     "SERVICES": "Улуги",
+    "TYPE": "Тип",
     "OWNER": "Владелец",
-    "COMPANY_OWNER": "Владелец компании"
+    "COMPANY_OWNER": "Владелец компании",
+    "TYPES": {
+      "SALON": "Салон",
+      "MASTER": "Мастер"
+    }
   },
   "DASHBOARD": {
     "USERS_IN_SYSTEM": "Пользователей в системе",
