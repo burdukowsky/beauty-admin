@@ -50,7 +50,7 @@ export class MyCompanyComponent implements OnInit {
 
   getCompany(): void {
     if (this.router.url === '/new-my-company') {
-      this.company = new Company(null, '', '', CompanyType.Salon, null);
+      this.company = new Company(null, '', '', '', '', '', '', CompanyType.Salon, null);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/my-companies', 'COMMON.MY_COMPANIES', true, false),
         new Breadcrumb(null, 'COMMON.ADD', true, true)

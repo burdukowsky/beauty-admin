@@ -9,7 +9,8 @@
       <tr>
         <th scope="col">{{"COMPANY.ID" | translate}}</th>
         <th scope="col">{{"COMPANY.NAME" | translate}}</th>
-        <th scope="col">{{"COMPANY.DESCRIPTION" | translate}}</th>
+        <th scope="col">{{"COMPANY.SITE" | translate}}</th>
+        <th scope="col">{{"COMPANY.PHONE" | translate}}</th>
         <th scope="col">{{"COMPANY.TYPE" | translate}}</th>
       </tr>
       </thead>
@@ -18,7 +19,8 @@
           *ngFor="let company of companies">
         <th scope="row">{{company.id}}</th>
         <td>{{company.name}}</td>
-        <td>{{company.description}}</td>
+        <td>{{company.site}}</td>
+        <td>{{company.phone}}</td>
         <td>{{"COMPANY.TYPES." + company.companyType | translate}}</td>
       </tr>
       </tbody>

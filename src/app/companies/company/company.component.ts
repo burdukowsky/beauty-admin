@@ -53,7 +53,7 @@ export class CompanyComponent implements OnInit {
 
   getCompany(): void {
     if (this.router.url === '/new-company') {
-      this.company = new Company(null, '', '', CompanyType.Salon, null);
+      this.company = new Company(null, '', '', '', '', '', '', CompanyType.Salon, null);
       this.company.owner = new User(null, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
