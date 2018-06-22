@@ -20,7 +20,11 @@
     "LOAD_ERROR_MESSAGE": "Error receiving data",
     "DELETE": "Delete",
     "ADD": "Add",
-    "NO_ITEMS": "No items"
+    "NO_ITEMS": "No items",
+    "MISSING": "Missing",
+    "GO": "Go",
+    "VALUE": "Value",
+    "SET": "Set"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"
@@ -63,10 +67,12 @@
     "SITE": "Site",
     "PHONE": "Phone",
     "ADDRESS": "Address",
+    "RATING": "Rating",
     "SERVICES": "Services",
     "TYPE": "Type",
     "OWNER": "Owner",
     "COMPANY_OWNER": "Company owner",
+    "CHANGE_RATING": "Change rating",
     "TYPES": {
       "SALON": "Salon",
       "MASTER": "Master"

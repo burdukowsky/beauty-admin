@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <form (ngSubmit)="onSubmit()" #companyForm="ngForm" autocomplete="off">
+  <form (ngSubmit)="onSubmit()" #companyForm="ngForm" autocomplete="off" class="mb-3">
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label font-weight-bold">{{"COMPANY.NAME" | translate}}:*</label>
       <div class="col-sm-10">
@@ -93,8 +93,34 @@
       </button>
     </div>
   </form>
-  <a routerLink="/users/{{company.owner.id}}" *ngIf="company.id !== null && company.owner" class="btn btn-info">
-    <i class="fa fa-user" aria-hidden="true"></i>
-    {{"COMPANY.COMPANY_OWNER" | translate}}
-  </a>
+
+  <div class="mb-3" *ngIf="company.id !== null">
+    <h4>{{"COMPANY.CHANGE_RATING" | translate}}</h4>
+    <div class="mb-3" *ngIf="company.rating === null">
+      <span class="mr-3">{{"COMMON.MISSING" | translate}}</span>
+      <button type="button" class="btn btn-primary btn-sm" (click)="company.rating = 4">
+        {{"COMMON.SET" | translate}}
+      </button>
+    </div>
+    <div class="mb-3 d-flex align-items-center" *ngIf="company.rating !== null">
+      <ngb-rating class="mr-3" [(rate)]="company.rating" [max]="5"></ngb-rating>
+      <span class="mr-3">{{"COMMON.VALUE" | translate}}: {{company.rating | number:'1.1-1'}}</span>
+      <button type="button" class="btn btn-primary btn-sm" *ngIf="originalRating !== company.rating"
+              (click)="submitRating()">
+        <i class="fa fa-paper-plane"></i> {{"COMMON.SUBMIT" | translate}}
+      </button>
+    </div>
+    <ngb-alert *ngIf="errorSubmitRatingMessage" type="danger" [dismissible]="false">
+      {{"COMMON.ERROR_MESSAGE" | translate}}
+    </ngb-alert>
+  </div>
+
+  <div *ngIf="company.id !== null && company.owner">
+    <h4>{{"COMPANY.COMPANY_OWNER" | translate}}</h4>
+    <a routerLink="/users/{{company.owner.id}}" class="btn btn-info">
+      {{"COMMON.GO" | translate}}
+      <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+    </a>
+  </div>
+
 </div>

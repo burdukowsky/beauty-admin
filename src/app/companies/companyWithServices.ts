@@ -13,6 +13,7 @@ export class CompanyWithServices extends Company {
       company.site,
       company.phone,
       company.address,
+      company.rating,
       company.companyType,
       company.owner);
     this.services = services;

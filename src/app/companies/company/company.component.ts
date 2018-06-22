@@ -24,6 +24,7 @@ export class CompanyComponent implements OnInit {
   companyTypes = CompanyType;
   companyTypesKeys = Object.keys(this.companyTypes);
   company: Company;
+  originalRating: number = null;
   ownerId: string;
   members: Array<User>;
   loadErrorMessage: boolean;
@@ -31,6 +32,8 @@ export class CompanyComponent implements OnInit {
   errorMessage: boolean;
   private _success = new Subject<boolean>();
   private _error = new Subject<boolean>();
+  errorSubmitRatingMessage: boolean;
+  private _errorSubmitRating = new Subject<boolean>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -47,13 +50,16 @@ export class CompanyComponent implements OnInit {
     debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
     debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
 
+    this._errorSubmitRating.subscribe((state) => this.errorSubmitRatingMessage = state);
+    debounceTime.call(this._errorSubmitRating, globals.alertTimeout).subscribe(() => this.errorSubmitRatingMessage = false);
+
     this.getCompany();
     this.getMembers();
   }
 
   getCompany(): void {
     if (this.router.url === '/new-company') {
-      this.company = new Company(null, '', '', '', '', '', '', CompanyType.Salon, null);
+      this.company = new Company(null, '', '', '', '', '', '', null, CompanyType.Salon, null);
       this.company.owner = new User(null, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
@@ -65,6 +71,7 @@ export class CompanyComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.companyService.getCompany(id).subscribe(company => {
         this.company = company;
+        this.originalRating = company.rating;
         const breadcrumbs: Array<Breadcrumb> = [
           new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
           new Breadcrumb(null, this.company.name, false, true)
@@ -124,6 +131,15 @@ export class CompanyComponent implements OnInit {
       this.location.back();
     }, error => {
       this._error.next(true);
+      console.error(error);
+    });
+  }
+
+  public submitRating(): void {
+    this.companyService.setRatingForCompany(this.company.id, this.company.rating).subscribe(response => {
+      this.originalRating = this.company.rating;
+    }, error => {
+      this._errorSubmitRating.next(true);
       console.error(error);
     });
   }

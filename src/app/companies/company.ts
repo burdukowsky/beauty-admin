@@ -9,6 +9,7 @@ export class Company {
   site: string;
   phone: string;
   address: string;
+  rating: number;
   companyType: CompanyType;
   owner: User;
 
@@ -22,6 +23,7 @@ export class Company {
       response.site,
       response.phone,
       response.address,
+      response.rating,
       response.companyType,
       owner);
   }
@@ -33,6 +35,7 @@ export class Company {
               site: string,
               phone: string,
               address: string,
+              rating: number,
               companyType: CompanyType,
               owner: User) {
     this.id = id;
@@ -42,6 +45,7 @@ export class Company {
     this.site = site;
     this.phone = phone;
     this.address = address;
+    this.rating = rating;
     this.companyType = companyType;
     this.owner = owner;
   }

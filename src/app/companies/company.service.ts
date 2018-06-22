@@ -61,6 +61,10 @@ export class CompanyService {
     return this.http.put(`${environment.apiEndpoint}/companies/${companyId}/services`, body, {headers: headers});
   }
 
+  setRatingForCompany(companyId: number, rating: number): Observable<any> {
+    return this.http.patch<any>(`${environment.apiEndpoint}/companies/${companyId}/rating`, {value: rating});
+  }
+
   constructor(private http: HttpClient) {
   }
 

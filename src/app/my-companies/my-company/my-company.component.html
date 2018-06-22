@@ -13,6 +13,10 @@
   <div class="row" *ngIf="company.id !== null">
     <div class="col-sm-9">
       <h2>{{company.name}}</h2>
+      <div *ngIf="company.rating === null" class="mb-3">
+        {{"COMPANY.RATING" | translate}} <span class="text-lowercase">{{"COMMON.MISSING" | translate}}</span>
+      </div>
+      <ngb-rating *ngIf="company.rating !== null" [readonly]="true" [max]="5" [rate]="company.rating"></ngb-rating>
     </div>
     <div class="col-sm-3 text-right">
       <button type="button" (click)="delete()" class="btn btn-danger mb-2">
