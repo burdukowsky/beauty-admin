@@ -10,6 +10,7 @@ export class CompanyRest {
   phone: string;
   address: string;
   rating: number;
+  image: string;
   companyType: string;
   owner: string;
 
@@ -22,6 +23,7 @@ export class CompanyRest {
     this.phone = company.phone;
     this.address = company.address;
     this.rating = company.rating;
+    this.image = company.image;
     this.companyType = company.companyType;
     this.owner = company.owner ? `${environment.apiEndpoint}/users/${company.owner.id}` : undefined;
   }

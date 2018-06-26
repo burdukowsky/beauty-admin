@@ -24,7 +24,8 @@
     "MISSING": "Missing",
     "GO": "Go",
     "VALUE": "Value",
-    "SET": "Set"
+    "SET": "Set",
+    "CHOOSE": "Choose"
   },
   "SETTINGS": {
     "LANGUAGE": "Language"
@@ -71,8 +72,11 @@
     "SERVICES": "Services",
     "TYPE": "Type",
     "OWNER": "Owner",
+    "IMAGE": "Image",
     "COMPANY_OWNER": "Company owner",
     "CHANGE_RATING": "Change rating",
+    "UPDATE_IMAGE": "Update image",
+    "IMAGE_NOT_SET": "Image is not set",
     "TYPES": {
       "SALON": "Salon",
       "MASTER": "Master"

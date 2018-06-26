@@ -30,10 +30,14 @@ export class CompanyComponent implements OnInit {
   loadErrorMessage: boolean;
   successMessage: boolean;
   errorMessage: boolean;
+  image: File = null;
+  imagePrefix: string = globals.imagePrefix;
   private _success = new Subject<boolean>();
   private _error = new Subject<boolean>();
   errorSubmitRatingMessage: boolean;
   private _errorSubmitRating = new Subject<boolean>();
+  errorSubmitImageMessage: boolean;
+  private _errorSubmitImage = new Subject<boolean>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -53,13 +57,16 @@ export class CompanyComponent implements OnInit {
     this._errorSubmitRating.subscribe((state) => this.errorSubmitRatingMessage = state);
     debounceTime.call(this._errorSubmitRating, globals.alertTimeout).subscribe(() => this.errorSubmitRatingMessage = false);
 
+    this._errorSubmitImage.subscribe((state) => this.errorSubmitImageMessage = state);
+    debounceTime.call(this._errorSubmitImage, globals.alertTimeout).subscribe(() => this.errorSubmitImageMessage = false);
+
     this.getCompany();
     this.getMembers();
   }
 
   getCompany(): void {
     if (this.router.url === '/new-company') {
-      this.company = new Company(null, '', '', '', '', '', '', null, CompanyType.Salon, null);
+      this.company = new Company(null, '', '', '', '', '', '', null, null, CompanyType.Salon, null);
       this.company.owner = new User(null, '', '', '', '', '', null, Gender.Unknown, [new Role(RoleEnum.Member)]);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/companies', 'COMMON.COMPANIES', true, false),
@@ -140,6 +147,20 @@ export class CompanyComponent implements OnInit {
       this.originalRating = this.company.rating;
     }, error => {
       this._errorSubmitRating.next(true);
+      console.error(error);
+    });
+  }
+
+  public handleImageInput(files: FileList): void {
+    this.image = files.item(0);
+  }
+
+  public updateImage(): void {
+    this.companyService.updateCompanyImage(this.company.id, this.image).subscribe(response => {
+      this.company.image = response.image;
+      this.image = null;
+    }, error => {
+      this._errorSubmitImage.next(true);
       console.error(error);
     });
   }

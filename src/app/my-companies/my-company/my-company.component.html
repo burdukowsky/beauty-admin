@@ -86,4 +86,26 @@
       </button>
     </div>
   </form>
+
+  <div class="mb-3" *ngIf="company.id !== null">
+    <h4>{{"COMPANY.UPDATE_IMAGE" | translate}}</h4>
+    <img *ngIf="company.image !== null" src="{{imagePrefix + company.image}}" class="img-thumbnail mb-3">
+    <p *ngIf="company.image === null">{{"COMPANY.IMAGE_NOT_SET" | translate}}</p>
+    <div class="form-group">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="image" name="image"
+               (change)="handleImageInput($event.target.files)">
+        <label class="custom-file-label text-truncate" for="image">
+          {{image === null ? ("COMMON.CHOOSE" | translate) : image.name}}
+        </label>
+      </div>
+    </div>
+    <button *ngIf="image !== null" type="button" class="btn btn-primary btn-sm mb-3" (click)="updateImage()">
+      <i class="fa fa-paper-plane"></i> {{"COMMON.SUBMIT" | translate}}
+    </button>
+    <ngb-alert *ngIf="errorSubmitImageMessage" type="danger" [dismissible]="false">
+      {{"COMMON.ERROR_MESSAGE" | translate}}
+    </ngb-alert>
+  </div>
+
 </div>

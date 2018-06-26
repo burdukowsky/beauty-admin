@@ -27,8 +27,12 @@ export class MyCompanyComponent implements OnInit {
   loadErrorMessage: boolean;
   successMessage: boolean;
   errorMessage: boolean;
+  image: File = null;
+  imagePrefix: string = globals.imagePrefix;
   private _success = new Subject<boolean>();
   private _error = new Subject<boolean>();
+  errorSubmitImageMessage: boolean;
+  private _errorSubmitImage = new Subject<boolean>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -45,12 +49,15 @@ export class MyCompanyComponent implements OnInit {
     debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
     debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
 
+    this._errorSubmitImage.subscribe((state) => this.errorSubmitImageMessage = state);
+    debounceTime.call(this._errorSubmitImage, globals.alertTimeout).subscribe(() => this.errorSubmitImageMessage = false);
+
     this.getCompany();
   }
 
   getCompany(): void {
     if (this.router.url === '/new-my-company') {
-      this.company = new Company(null, '', '', '', '', '', '', null, CompanyType.Salon, null);
+      this.company = new Company(null, '', '', '', '', '', '', null, null, CompanyType.Salon, null);
       const breadcrumbs: Array<Breadcrumb> = [
         new Breadcrumb('/my-companies', 'COMMON.MY_COMPANIES', true, false),
         new Breadcrumb(null, 'COMMON.ADD', true, true)
@@ -102,6 +109,20 @@ export class MyCompanyComponent implements OnInit {
       this._success.next(true);
     }, error => {
       this._error.next(true);
+      console.error(error);
+    });
+  }
+
+  public handleImageInput(files: FileList): void {
+    this.image = files.item(0);
+  }
+
+  public updateImage(): void {
+    this.companyService.updateCompanyImage(this.company.id, this.image).subscribe(response => {
+      this.company.image = response.image;
+      this.image = null;
+    }, error => {
+      this._errorSubmitImage.next(true);
       console.error(error);
     });
   }

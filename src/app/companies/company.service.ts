@@ -65,6 +65,12 @@ export class CompanyService {
     return this.http.patch<any>(`${environment.apiEndpoint}/companies/${companyId}/rating`, {value: rating});
   }
 
+  updateCompanyImage(companyId: number, image: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('image', image, image.name);
+    return this.http.patch<any>(`${environment.apiEndpoint}/companies/${companyId}/image`, formData);
+  }
+
   constructor(private http: HttpClient) {
   }
 

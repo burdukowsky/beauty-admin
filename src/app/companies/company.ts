@@ -10,6 +10,7 @@ export class Company {
   phone: string;
   address: string;
   rating: number;
+  image: string;
   companyType: CompanyType;
   owner: User;
 
@@ -24,6 +25,7 @@ export class Company {
       response.phone,
       response.address,
       response.rating,
+      response.image,
       response.companyType,
       owner);
   }
@@ -36,6 +38,7 @@ export class Company {
               phone: string,
               address: string,
               rating: number,
+              image: string,
               companyType: CompanyType,
               owner: User) {
     this.id = id;
@@ -46,6 +49,7 @@ export class Company {
     this.phone = phone;
     this.address = address;
     this.rating = rating;
+    this.image = image;
     this.companyType = companyType;
     this.owner = owner;
   }
