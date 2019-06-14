@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
+import {cloneDeep} from 'lodash';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+
 import {Breadcrumb} from '../utility/breadcrumb';
 import {BreadcrumbsService} from '../utility/breadcrumbs.service';
 import {Category} from './category';
 import {CategoryService} from './category.service';
 import {Service} from './service';
-import {cloneDeep} from 'lodash';
-import {Subject} from 'rxjs/Subject';
-import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../globals';
 
 @Component({
@@ -37,9 +38,10 @@ export class CategoriesComponent implements OnInit {
     this.loadErrorMessage = false;
 
     this._success.subscribe((state) => this.successMessage = state);
+    this._success.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.successMessage = false);
+
     this._error.subscribe((state) => this.errorMessage = state);
-    debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
-    debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
+    this._error.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.errorMessage = false);
 
     this.addingMode = false;
     this.getCategories();

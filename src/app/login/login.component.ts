@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../auth/auth.service';
 import {HttpResponse} from '@angular/common/http';
 import {Router, ActivatedRoute} from '@angular/router';
-import {globals} from '../globals';
 import {TranslateService} from '@ngx-translate/core';
-import {Subject} from 'rxjs/Subject';
-import {debounceTime} from 'rxjs/operator/debounceTime';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+
+import {globals} from '../globals';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this._error.subscribe((state) => this.errorMessage = state);
-    debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
+    this._error.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.errorMessage = false);
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 

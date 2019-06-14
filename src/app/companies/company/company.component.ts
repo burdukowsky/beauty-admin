@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Company} from '../company';
-import {Subject} from 'rxjs/Subject';
+import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {CompanyService} from '../company.service';
-import {debounceTime} from 'rxjs/operator/debounceTime';
+import {debounceTime} from 'rxjs/operators';
+
 import {globals} from '../../globals';
 import {BreadcrumbsService} from '../../utility/breadcrumbs.service';
 import {Breadcrumb} from '../../utility/breadcrumb';
@@ -14,6 +13,8 @@ import {RoleEnum} from '../../users/role.enum';
 import {Gender} from '../../users/gender.enum';
 import {Role} from '../../users/role';
 import {CompanyType} from '../companyType.enum';
+import {Company} from '../company';
+import {CompanyService} from '../company.service';
 
 @Component({
   selector: 'app-company',
@@ -49,16 +50,18 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit() {
     this.loadErrorMessage = false;
+
     this._success.subscribe((state) => this.successMessage = state);
+    this._success.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.successMessage = false);
+
     this._error.subscribe((state) => this.errorMessage = state);
-    debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
-    debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
+    this._error.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.errorMessage = false);
 
     this._errorSubmitRating.subscribe((state) => this.errorSubmitRatingMessage = state);
-    debounceTime.call(this._errorSubmitRating, globals.alertTimeout).subscribe(() => this.errorSubmitRatingMessage = false);
+    this._errorSubmitRating.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.errorSubmitRatingMessage = false);
 
     this._errorSubmitImage.subscribe((state) => this.errorSubmitImageMessage = state);
-    debounceTime.call(this._errorSubmitImage, globals.alertTimeout).subscribe(() => this.errorSubmitImageMessage = false);
+    this._errorSubmitImage.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.errorSubmitImageMessage = false);
 
     this.getCompany();
     this.getMembers();

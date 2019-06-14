@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {Credentials} from './credentials';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+
 import {globals} from '../globals';
 import {User} from '../users/user';
-import {Observable} from 'rxjs/Observable';
+import {Credentials} from './credentials';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -62,11 +64,11 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    return this.http.get<any>(`${environment.apiEndpoint}/account`).map(User.buildFromResponse);
+    return this.http.get<any>(`${environment.apiEndpoint}/account`).pipe(map(User.buildFromResponse));
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<any>(`${environment.apiEndpoint}/account`, user).map(User.buildFromResponse);
+    return this.http.patch<any>(`${environment.apiEndpoint}/account`, user).pipe(map(User.buildFromResponse));
   }
 
   getUserId(): Observable<number> {

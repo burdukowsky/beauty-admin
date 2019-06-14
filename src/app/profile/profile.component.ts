@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+
 import {BreadcrumbsService} from '../utility/breadcrumbs.service';
 import {Breadcrumb} from '../utility/breadcrumb';
-import {debounceTime} from 'rxjs/operator/debounceTime';
 import {globals} from '../globals';
 import {User} from '../users/user';
 import {AuthService} from '../auth/auth.service';
@@ -37,9 +38,10 @@ export class ProfileComponent implements OnInit {
     this.loadErrorMessage = false;
 
     this._success.subscribe((state) => this.successMessage = state);
+    this._success.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.successMessage = false);
+
     this._error.subscribe((state) => this.errorMessage = state);
-    debounceTime.call(this._success, globals.alertTimeout).subscribe(() => this.successMessage = false);
-    debounceTime.call(this._error, globals.alertTimeout).subscribe(() => this.errorMessage = false);
+    this._error.pipe(debounceTime(globals.alertTimeout)).subscribe(() => this.errorMessage = false);
 
     this.getUser();
   }

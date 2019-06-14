@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+
 import {environment} from '../../environments/environment';
 import {UsersResponse} from './usersResponse';
 import {User} from './user';
@@ -16,20 +17,20 @@ export class UserService {
     params = params.append('limit', limit.toString());
     params = params.append('sort', 'email');
 
-    return this.http.get<any>(`${environment.apiEndpoint}/users`, {params: params}).map(response =>
-      new UsersResponse(response._embedded.users, response.page.totalElements));
+    return this.http.get<any>(`${environment.apiEndpoint}/users`, {params: params}).pipe(map(response =>
+      new UsersResponse(response._embedded.users, response.page.totalElements)));
   }
 
   getUser(id: number): Observable<User> {
-    return this.http.get<any>(`${environment.apiEndpoint}/users/${id}`).map(User.buildFromResponse);
+    return this.http.get<any>(`${environment.apiEndpoint}/users/${id}`).pipe(map(User.buildFromResponse));
   }
 
   replaceUser(user: User): Observable<User> {
-    return this.http.put<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(User.buildFromResponse);
+    return this.http.put<any>(`${environment.apiEndpoint}/users/${user.id}`, user).pipe(map(User.buildFromResponse));
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<any>(`${environment.apiEndpoint}/users/${user.id}`, user).map(User.buildFromResponse);
+    return this.http.patch<any>(`${environment.apiEndpoint}/users/${user.id}`, user).pipe(map(User.buildFromResponse));
   }
 
   deleteUser(userId: number): Observable<any> {
@@ -37,14 +38,14 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<any>(`${environment.apiEndpoint}/users`, user).map(User.buildFromResponse);
+    return this.http.post<any>(`${environment.apiEndpoint}/users`, user).pipe(map(User.buildFromResponse));
   }
 
   getUsersByRole(role: RoleEnum): Observable<Array<User>> {
     let params = new HttpParams();
     params = params.append('role', role);
     return this.http.get<any>(`${environment.apiEndpoint}/users/search/findAllByRolesNameOrderByFirstNameAscLastNameAsc`, {params: params})
-      .map(response => response._embedded.users.map(User.buildFromResponse));
+      .pipe(map(response => response._embedded.users.map(User.buildFromResponse)));
   }
 
   constructor(private http: HttpClient) {
