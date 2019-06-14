@@ -8,12 +8,15 @@ import {map} from 'rxjs/operators';
 import {globals} from '../globals';
 import {User} from '../users/user';
 import {Credentials} from './credentials';
-import {environment} from '../../environments/environment';
+import {AppConfig} from '../app-config.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private jwtHelperService: JwtHelperService, private http: HttpClient, private router: Router) {
+  constructor(private jwtHelperService: JwtHelperService,
+              private http: HttpClient,
+              private router: Router,
+              private appConfig: AppConfig) {
   }
 
   loggedIn(): boolean {
@@ -26,7 +29,7 @@ export class AuthService {
   }
 
   login(user: Credentials) {
-    return this.http.post(environment.apiEndpoint + '/login', user, {responseType: 'text', observe: 'response'});
+    return this.http.post(this.appConfig.api + '/login', user, {responseType: 'text', observe: 'response'});
   }
 
   logout(): void {
@@ -64,11 +67,11 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    return this.http.get<any>(`${environment.apiEndpoint}/account`).pipe(map(User.buildFromResponse));
+    return this.http.get<any>(`${this.appConfig.api}/account`).pipe(map(User.buildFromResponse));
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<any>(`${environment.apiEndpoint}/account`, user).pipe(map(User.buildFromResponse));
+    return this.http.patch<any>(`${this.appConfig.api}/account`, user).pipe(map(User.buildFromResponse));
   }
 
   getUserId(): Observable<number> {

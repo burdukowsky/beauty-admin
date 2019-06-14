@@ -4,21 +4,21 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {AdminMetrics} from './adminMetrics';
-import {environment} from '../../environments/environment';
 import {MemberMetrics} from './memberMetrics';
+import {AppConfig} from '../app-config.service';
 
 @Injectable()
 export class MetricsService {
 
+  constructor(private http: HttpClient, private appConfig: AppConfig) {
+  }
+
   getAdminMetrics(): Observable<AdminMetrics> {
-    return this.http.get<any>(`${environment.apiEndpoint}/metrics/admin`).pipe(map(AdminMetrics.buildFromResponse));
+    return this.http.get<any>(`${this.appConfig.api}/metrics/admin`).pipe(map(AdminMetrics.buildFromResponse));
   }
 
   getMemberMetrics(): Observable<MemberMetrics> {
-    return this.http.get<any>(`${environment.apiEndpoint}/metrics/member`).pipe(map(MemberMetrics.buildFromResponse));
-  }
-
-  constructor(private http: HttpClient) {
+    return this.http.get<any>(`${this.appConfig.api}/metrics/member`).pipe(map(MemberMetrics.buildFromResponse));
   }
 
 }

@@ -1,8 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {NgbDateAdapter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {JwtModule} from '@auth0/angular-jwt';
+import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgHttpLoaderModule} from 'ng-http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -37,7 +37,6 @@ import {
   NavDropdownToggleDirective,
   ReplaceDirective
 } from './directives/layout/layout.directive';
-import {environment} from '../environments/environment';
 import {globals} from './globals';
 import {UsersComponent} from './users/users.component';
 import {MyCompaniesComponent} from './my-companies/my-companies.component';
@@ -56,9 +55,26 @@ import {MetricsService} from './metrics/metrics.service';
 import {CategoryService} from './categories/category.service';
 import {MyCompanyComponent} from './my-companies/my-company/my-company.component';
 import {ProfileComponent} from './profile/profile.component';
+import {AppConfig} from './app-config.service';
+
+export function getUrlHost(url: string): string {
+  const pathArray = url.split('/');
+  return pathArray[2];
+}
+
+export function AppConfigFactory(appConfig: AppConfig) {
+  return () => appConfig.init();
+}
 
 export function tokenGetter() {
   return localStorage.getItem(globals.localStorageKeys.accessToken);
+}
+
+export function JwtOptionsFactory(appConfig: AppConfig) {
+  return {
+    tokenGetter: tokenGetter,
+    whitelistedDomains: [getUrlHost(appConfig.api)]
+  };
 }
 
 export function createTranslateLoader(http: HttpClient) {
@@ -108,9 +124,10 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     NgHttpLoaderModule.forRoot(),
     JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        whitelistedDomains: [environment.apiEndpointWithoutProtocol]
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: JwtOptionsFactory,
+        deps: [AppConfig]
       }
     }),
     AppRoutingModule,
@@ -124,6 +141,12 @@ export function createTranslateLoader(http: HttpClient) {
     NgxPaginationModule
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: AppConfigFactory,
+      deps: [AppConfig],
+      multi: true
+    },
     AuthService,
     AuthGuard,
     UserService,
