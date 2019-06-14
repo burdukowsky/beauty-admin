@@ -4,7 +4,7 @@ import {NgbDateAdapter, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {NgHttpLoaderModule} from 'ng-http-loader/ng-http-loader.module';
+import {NgHttpLoaderModule} from 'ng-http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -101,12 +101,12 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileComponent
   ],
   imports: [
-    NgbModule.forRoot(),
+    NgbModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgHttpLoaderModule,
+    NgHttpLoaderModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
